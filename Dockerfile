@@ -51,12 +51,14 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log \
 
 # Copy Start Service Scripts
 RUN mkdir -p /etc/my_init.d
-COPY ./build/ /etc/my_init.d
-RUN chmod +x /etc/my_init.d/*.sh
+COPY ./build/setup.sh /etc/my_init.d
+RUN chmod +x /etc/my_init.d/setup.sh
 
 # Use baseimage-docker's init system.
 # https://github.com/phusion/baseimage-docker
 CMD ["/sbin/my_init"]
+
+RUN ls -la /etc/php/7.2
 
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

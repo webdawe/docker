@@ -1,5 +1,12 @@
 #!/bin/sh
 
+
+
+service php7.2-fpm start
+# systemctl start php7.2-fpm.service
+
+nginx -g "daemon off;"
+
 chown -R www-data:www-data /var/www
 chmod 755 /var/www
 
