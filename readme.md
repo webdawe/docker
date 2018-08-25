@@ -2,14 +2,6 @@
 docker
 docker container --help
 
-## Display Docker version and info
-docker --version
-docker version
-docker info
-
-## Execute Docker image
-docker run hello-world
-
 ## List Docker images
 docker image ls
 
@@ -17,7 +9,6 @@ docker image ls
 docker container ls
 docker container ls --all
 docker container ls -aq
-
 
 ## Run Specific Image
 docker run -i -t docker-xebug_web /bin/bash
@@ -30,6 +21,6 @@ docker rmi $(docker images -q)
 
 docker build -t docker-xebug_web . 
 
-docker run -d -p 4000:80 docker-xebug_web
+docker run -it docker-xebug_web
 
-docker run --name docker-xebug_web -it docker-xebug_web
+# http://phusion.github.io/baseimage-docker/

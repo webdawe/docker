@@ -3,9 +3,9 @@ services:
   web:
     build: .
     volumes:
-      - .:/var/www/html
+      - ./src:/var/www/html
     ports:
-      - 9000:80
+      - 7000:80
     tty: true
 volumes:
   dbdata:
