@@ -2,6 +2,8 @@ version: '3'
 services:
   web:
     build: .
+    environment:
+      XDEBUG_HOST: ${XDEBUG_HOST}
     volumes:
       - ./app:/var/www/html
     ports:

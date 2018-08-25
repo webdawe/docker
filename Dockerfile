@@ -1,6 +1,8 @@
 FROM phusion/baseimage
 LABEL Rob Mellett <robmellett@gmail.com>
 
+ENV XDEBUG_HOST=${XDEBUG_HOST}
+
 # ensure UTF-8
 RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
@@ -50,6 +52,8 @@ COPY ./php/xdebug.ini /etc/php/7.2/mods-available/xdebug.ini
 # Expose the Nginx Log to Docker
 RUN ln -sf /dev/stdout /var/log/nginx/access.log \
     && ln -sf /dev/stderr /var/log/nginx/error.log
+
+RUN echo XDEBUG_HOST $XDEBUG_HOST ${XDEBUG_HOST}
 
 # Copy Start Service Scripts
 RUN mkdir -p /etc/my_init.d
