@@ -45,20 +45,20 @@ RUN apt-get install -y \
     php-memcached
 RUN command -v php
 
+COPY ./php/xdebug.ini /etc/php/7.2/mods-available/xdebug.ini
+
 # Expose the Nginx Log to Docker
 RUN ln -sf /dev/stdout /var/log/nginx/access.log \
     && ln -sf /dev/stderr /var/log/nginx/error.log
 
 # Copy Start Service Scripts
 RUN mkdir -p /etc/my_init.d
-COPY ./build/setup.sh /etc/my_init.d
+COPY ./services/setup.sh /etc/my_init.d
 RUN chmod +x /etc/my_init.d/setup.sh
 
 # Use baseimage-docker's init system.
 # https://github.com/phusion/baseimage-docker
 CMD ["/sbin/my_init"]
-
-RUN ls -la /etc/php/7.2
 
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
