@@ -1,3 +1,6 @@
+## Base Image 
+> http://phusion.github.io/baseimage-docker/
+
 ## List Docker CLI commands
 docker
 docker container --help
@@ -23,4 +26,8 @@ docker build -t docker-xebug_web .
 
 docker run -it docker-xebug_web
 
-# http://phusion.github.io/baseimage-docker/
+## Run the application with:
+XDEBUG_HOST=192.168.0.6 docker-compose up
+
+View in Chrome
+> http://localhost:7000
