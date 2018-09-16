@@ -53,8 +53,6 @@ COPY ./php/xdebug.ini /etc/php/7.2/mods-available/xdebug.ini
 RUN ln -sf /dev/stdout /var/log/nginx/access.log \
     && ln -sf /dev/stderr /var/log/nginx/error.log
 
-RUN echo XDEBUG_HOST $XDEBUG_HOST ${XDEBUG_HOST}
-
 # Copy Start Service Scripts
 RUN mkdir -p /etc/my_init.d
 COPY ./services/setup.sh /etc/my_init.d
