@@ -29,5 +29,8 @@ docker run -it docker-xebug_web
 ## Run the application with:
 XDEBUG_HOST=192.168.0.6 docker-compose up
 
+or using helper script
+> ./develop.sh up --build
+
 View in Chrome
 > http://localhost:7000
