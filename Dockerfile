@@ -1,7 +1,7 @@
 FROM phusion/baseimage
 LABEL Rob Mellett <robmellett@gmail.com>
 
-ENV XDEBUG_HOST=${XDEBUG_HOST}
+# ENV XDEBUG_HOST=${XDEBUG_HOST}
 
 # ensure UTF-8
 RUN locale-gen en_US.UTF-8
