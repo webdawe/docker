@@ -3,6 +3,8 @@ LABEL Rob Mellett <robmellett@gmail.com>
 
 # Environmental Configuration
 ENV XDEBUG_HOST=${XDEBUG_HOST}
+ENV XDEBUG_IDEKEY=${XDEBUG_IDEKEY}
+ENV XDEBUG_REMOTE_PORT=${XDEBUG_REMOTE_PORT}
 
 # Ensure UTF-8
 RUN locale-gen en_US.UTF-8
