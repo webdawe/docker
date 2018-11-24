@@ -68,8 +68,8 @@ COPY ./php/www.conf /etc/php/7.2/fpm/pool.d/www.conf
 RUN php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer
 
 # Install Redis
-RUN apt-add-repository -y ppa:chris-lea/redis-server && apt-get update
-RUN apt-get -q -y install redis-server
+# RUN apt-add-repository -y ppa:chris-lea/redis-server && apt-get update
+# RUN apt-get -q -y install redis-server
 
 # Node
 RUN curl --silent --location https://deb.nodesource.com/setup_9.x | bash - && apt-get update
