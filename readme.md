@@ -1,3 +1,5 @@
+### A base Docker image with Php (Xdebug), Composer, Nginx, NPM, Yarn, Redis, Prometheus Node Exporter
+
 ## PHP Settings
     post_max_size = 100M
     upload_max_filesize = 100M
@@ -18,7 +20,7 @@ docker container ls --all
 docker container ls -aq
 
 ## Run Specific Image
-docker run -i -t docker-xebug_web /bin/bash
+docker run -it docker-xebug_web_1 /bin/bash
 
 ## Delete all containers
 docker rm $(docker ps -a -q)
@@ -38,3 +40,7 @@ or using helper script
 
 View in Chrome
 > http://localhost:7000
+
+## Building Docker Image and Pushing to Docker Cloud
+docker build -t beyondlimits99/php7.2-nginx .
+docker push beyondlimits99/php7.2-nginx
