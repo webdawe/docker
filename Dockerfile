@@ -62,6 +62,7 @@ RUN command -v php
 
 COPY ./php/php.ini /etc/php/7.2/cli/php.ini
 COPY ./php/xdebug.ini /etc/php/7.2/mods-available/xdebug.ini
+COPY ./php/www.conf /etc/php/7.2/fpm/pool.d/www.conf
 
 # Install Composer
 RUN php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer
