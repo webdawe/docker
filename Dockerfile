@@ -83,7 +83,7 @@ RUN apt -q -y update && apt -q -y install yarn
 
 # Prometheus Monitoring
 RUN curl https://s3-eu-west-1.amazonaws.com/deb.robustperception.io/41EFC99D.gpg | apt-key add -
-RUN apt update && apt -q -y prometheus-node-exporter
+RUN apt update && apt -q -y install prometheus-node-exporter
 
 # Copy Start Service Scripts
 RUN mkdir -p /etc/my_init.d
