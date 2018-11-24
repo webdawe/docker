@@ -60,3 +60,23 @@ docker build -t docker-xebug_web .
 
 docker run -it docker-xebug_web
 ```
+
+## Docker Swarm with Digital Ocean
+docker-machine create --driver digitalocean \
+    --digitalocean-image ubuntu-18-04-x64 \
+    --digitalocean-access-token $DOTOKEN \
+    rob-test-1
+
+### See list of Docker Machines Created
+docker-machine ls
+
+### Set your Env to the machine
+docker-machine env rob-test-1
+
+## Login to Git Lab
+docker login registy.gitlab.com
+
+docker run -d --restart=unless-stopped -p 80:80 \
+    registry.gitlab.com/robmellett/docker-xdebug/php
+
+docker-machine ip rob-test-1
