@@ -1,9 +1,9 @@
 FROM phusion/baseimage
 LABEL Rob Mellett <robmellett@gmail.com>
 
-# ENV XDEBUG_HOST=${XDEBUG_HOST}
+ENV XDEBUG_HOST=${XDEBUG_HOST}
 
-# ensure UTF-8
+# Ensure UTF-8
 RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
@@ -47,6 +47,7 @@ RUN apt-get install -y \
     php-memcached
 RUN command -v php
 
+COPY ./php/php.ini /etc/php/7.2/cli/php.ini
 COPY ./php/xdebug.ini /etc/php/7.2/mods-available/xdebug.ini
 
 # Expose the Nginx Log to Docker
