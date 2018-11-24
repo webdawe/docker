@@ -1,12 +1,23 @@
 FROM phusion/baseimage
 LABEL Rob Mellett <robmellett@gmail.com>
 
+# Environmental Configuration
 ENV XDEBUG_HOST=${XDEBUG_HOST}
 
 # Ensure UTF-8
 RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
+
+# Use UTC Time
+# RUN ln -sf /usr/share/zoneinfo/UTC /etc/localtime
+
+# Set Timezone to Melbourne, Australia
+RUN ln -sf /usr/share/zoneinfo/Australia/Melbourne /etc/localtime
+
+# Install Recommended Packages
+RUN apt update \
+    && apt install -y -q curl wget zip unzip git python2.7 unattended-upgrades htop lnav
 
 # Install Nginx
 RUN apt-get update \

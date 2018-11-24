@@ -1,3 +1,7 @@
+## PHP Settings
+    post_max_size = 100M
+    upload_max_filesize = 100M
+    
 ## Base Image 
 > http://phusion.github.io/baseimage-docker/
 
