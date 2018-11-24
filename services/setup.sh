@@ -12,5 +12,7 @@ chown -R www-data:www-data /var/www
 chmod 755 /var/www
 
 # Start Web Services
+echo "\n"
+echo ">>> Starting Web Services"
 service php7.2-fpm start
 nginx -g "daemon off;"
