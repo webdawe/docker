@@ -7,7 +7,7 @@ before_script:
   - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
 
 after_script:
-  - docker login -u $DOCKER_CLOUD_USER -p $DOCKER_CLOUD_PASSWORD
+  - docker login -u $DOCKER_CLOUD_USER --password-stdin $DOCKER_CLOUD_PASSWORD
   - docker push beyondlimits99/php:php7.2-nginx
 
 # Master
