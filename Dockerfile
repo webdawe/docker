@@ -72,10 +72,6 @@ RUN apt -q -y install redis-server
 RUN curl --silent --location https://deb.nodesource.com/setup_9.x | bash - && apt update
 RUN apt -q -y install nodejs
 
-# Expose the Nginx Log to Docker
-RUN ln -sf /dev/stdout /var/log/nginx/access.log \
-    && ln -sf /dev/stderr /var/log/nginx/error.log
-
 # Yarn
 RUN curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
@@ -89,6 +85,10 @@ RUN apt update && apt -q -y install prometheus-node-exporter
 RUN mkdir -p /etc/my_init.d
 COPY ./services/setup.sh /etc/my_init.d
 RUN chmod +x /etc/my_init.d/setup.sh
+
+# Expose the Nginx Log to Docker
+RUN ln -sf /dev/stdout /var/log/nginx/access.log \
+    && ln -sf /dev/stderr /var/log/nginx/error.log
 
 # Use baseimage-docker's init system.
 # https://github.com/phusion/baseimage-docker
