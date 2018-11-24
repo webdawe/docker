@@ -7,13 +7,10 @@ Baseimage-docker only consumes 8.3 MB RAM and is much more powerful than Busybox
 
 Baseimage-docker is a special Docker image that is configured for correct use within Docker containers. It is Ubuntu, plus:
 
-Modifications for Docker-friendliness.
-Administration tools that are especially useful in the context of Docker.
-Mechanisms for easily running multiple processes, without violating the Docker philosophy.
-You can use it as a base for your own Docker images.
-
-Baseimage-docker is available for pulling from the Docker registry!
-
+- Modifications for Docker-friendliness.
+- Administration tools that are especially useful in the context of Docker.
+- Mechanisms for easily running multiple processes, without violating the Docker philosophy.
+- You can use it as a base for your own Docker images.
 
 ## Run the application with:
 ```
