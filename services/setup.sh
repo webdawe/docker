@@ -32,6 +32,7 @@ sed -i "s/xdebug\.idekey\=.*/xdebug\.idekey\="$XDEBUG_IDEKEY"/g" /etc/php/7.2/mo
 cat "/etc/php/7.2/mods-available/xdebug.ini"
 
 if [ "$env" != "local" ]; then
+    echo "\n"
     echo ">>> Environment is not local, disabling XDebug."
     rm -rf "/etc/php/7.2/mods-available/xdebug.ini"
 fi
