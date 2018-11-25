@@ -28,13 +28,13 @@ sed -i "s/xdebug\.remote_host\=.*/xdebug\.remote_host\="$XDEBUG_HOST"/g" /etc/ph
 sed -i "s/xdebug\.remote_port\=.*/xdebug\.remote_port\="$XDEBUG_REMOTE_PORT"/g" /etc/php/7.2/mods-available/xdebug.ini
 sed -i "s/xdebug\.idekey\=.*/xdebug\.idekey\="$XDEBUG_IDEKEY"/g" /etc/php/7.2/mods-available/xdebug.ini
 
-if [ "$env" != "local" ]; then
-    echo ">>> Environment is not local, removing XDebug."
-    rm -rf "/etc/php/7.2/mods-available/xdebug.ini"
-fi
-
 # Display contents of xdebug
 cat "/etc/php/7.2/mods-available/xdebug.ini"
+
+if [ "$env" != "local" ]; then
+    echo ">>> Environment is not local, disabling XDebug."
+    rm -rf "/etc/php/7.2/mods-available/xdebug.ini"
+fi
 
 # Fix www permissions
 chgrp -R www-data /var/www/html
