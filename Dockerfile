@@ -22,7 +22,7 @@ RUN ln -sf /usr/share/zoneinfo/Australia/Melbourne /etc/localtime
 
 # Install Recommended Packages
 RUN apt-get update \
-    && apt-get -q -y install curl wget zip unzip git python2.7 unattended-upgrades htop lnav
+    && apt-get -q -y install curl wget zip unzip git python2.7 unattended-upgrades htop lnav vim
 
 # Install Nginx
 RUN apt-get update \
