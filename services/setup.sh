@@ -1,5 +1,7 @@
 #!/bin/sh
 
+env=${APP_ENV:-production}
+
 echo "\n"
 echo ">>> Configuring PHP Settings."
 sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/7.2/cli/php.ini
@@ -25,6 +27,11 @@ sed -i "s/xdebug\.remote_connect_back\=.*/xdebug\.remote_connect_back\="$XDEBUG_
 sed -i "s/xdebug\.remote_host\=.*/xdebug\.remote_host\="$XDEBUG_HOST"/g" /etc/php/7.2/mods-available/xdebug.ini
 sed -i "s/xdebug\.remote_port\=.*/xdebug\.remote_port\="$XDEBUG_REMOTE_PORT"/g" /etc/php/7.2/mods-available/xdebug.ini
 sed -i "s/xdebug\.idekey\=.*/xdebug\.idekey\="$XDEBUG_IDEKEY"/g" /etc/php/7.2/mods-available/xdebug.ini
+
+if [ "$env" != "local" ]; then
+    echo ">>> Environment is Set to Production. Removing XDebug"
+    rm -rf "/etc/php/7.2/mods-available/xdebug.ini"
+fi
 
 # Display contents of xdebug
 cat "/etc/php/7.2/mods-available/xdebug.ini"
