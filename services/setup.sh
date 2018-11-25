@@ -29,7 +29,7 @@ sed -i "s/xdebug\.remote_port\=.*/xdebug\.remote_port\="$XDEBUG_REMOTE_PORT"/g" 
 sed -i "s/xdebug\.idekey\=.*/xdebug\.idekey\="$XDEBUG_IDEKEY"/g" /etc/php/7.2/mods-available/xdebug.ini
 
 if [ "$env" != "local" ]; then
-    echo ">>> Environment is Set to Production. Removing XDebug"
+    echo ">>> Environment is not local, removing XDebug."
     rm -rf "/etc/php/7.2/mods-available/xdebug.ini"
 fi
 
