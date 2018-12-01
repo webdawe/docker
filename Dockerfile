@@ -89,8 +89,8 @@ RUN apt-get update && apt-get -q -y install prometheus-node-exporter
 
 # Copy Start Service Scripts
 RUN mkdir -p /etc/my_init.d
-COPY ./services/run-app.sh /etc/my_init.d
-RUN chmod +x /etc/my_init.d/run-app.sh
+COPY ./services/run-app.sh /etc/my_init.d/run-app
+RUN chmod +x /etc/my_init.d/run-app
 
 # Supervisor
 COPY supervisor/supervisord.conf /etc/supervisor/supervisord.conf
@@ -102,7 +102,7 @@ COPY confd/conf.d/ /etc/confd/conf.d/
 COPY confd/templates/ /etc/confd/templates/
 
 RUN chmod +x /usr/local/bin/confd \
-    && chmod +x /usr/local/bin/run-app
+    && chmod +x /etc/my_init.d/run-app
 
 # Expose the Nginx Log to Docker
 RUN ln -sf /dev/stdout /var/log/nginx/access.log \
