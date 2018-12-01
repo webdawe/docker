@@ -22,7 +22,7 @@ RUN ln -sf /usr/share/zoneinfo/Australia/Melbourne /etc/localtime
 
 # Install Recommended Packages
 RUN apt-get update \
-    && apt-get -q -y install curl wget zip unzip git python2.7 unattended-upgrades htop lnav vim
+    && apt-get -q -y install supervisor curl wget zip unzip git python2.7 sqlite3 htop lnav vim unattended-upgrades
 
 # Install Nginx
 RUN apt-get update \
@@ -89,8 +89,20 @@ RUN apt-get update && apt-get -q -y install prometheus-node-exporter
 
 # Copy Start Service Scripts
 RUN mkdir -p /etc/my_init.d
-COPY ./services/setup.sh /etc/my_init.d
-RUN chmod +x /etc/my_init.d/setup.sh
+COPY ./services/run-app.sh /etc/my_init.d
+RUN chmod +x /etc/my_init.d/run-app.sh
+
+# Supervisor
+COPY supervisor/supervisord.conf /etc/supervisor/supervisord.conf
+COPY supervisor/conf.d/*.conf /etc/supervisor/conf.d-available/
+
+# Conf
+ADD https://github.com/kelseyhightower/confd/releases/download/v0.11.0/confd-0.11.0-linux-amd64 /usr/local/bin/confd
+COPY confd/conf.d/ /etc/confd/conf.d/
+COPY confd/templates/ /etc/confd/templates/
+
+RUN chmod +x /usr/local/bin/confd \
+    && chmod +x /usr/local/bin/run-app
 
 # Expose the Nginx Log to Docker
 RUN ln -sf /dev/stdout /var/log/nginx/access.log \
