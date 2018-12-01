@@ -24,16 +24,19 @@ confd -onetime -backend env
 # App
 if [ "$role" = "app" ]; then
 
+    echo ">> Setting role to: [app]"
     ln -sf /etc/supervisor/conf.d-available/app.conf /etc/supervisor/conf.d/app.conf
 
 # Queue
 elif [ "$role" = "queue" ]; then
 
+    echo ">> Setting role to: [queue]"
     ln -sf /etc/supervisor/conf.d-available/queue.conf /etc/supervisor/conf.d/queue.conf
 
 # Scheduler
 elif [ "$role" = "scheduler" ]; then
 
+    echo ">> Setting role to: [scheduler]"
     ln -sf /etc/supervisor/conf.d-available/scheduler.conf /etc/supervisor/conf.d/scheduler.conf
 
 else
