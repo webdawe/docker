@@ -66,6 +66,7 @@ RUN command -v php
 COPY ./php/php.ini /etc/php/7.2/cli/php.ini
 COPY ./php/xdebug.ini /etc/php/7.2/mods-available/xdebug.ini
 COPY ./php/www.conf /etc/php/7.2/fpm/pool.d/www.conf
+COPY ./php/php-fpm.conf /etc/php/7.2/fpm/php-fpm.conf
 
 # Install Composer
 RUN php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer
@@ -88,9 +89,9 @@ RUN curl https://s3-eu-west-1.amazonaws.com/deb.robustperception.io/41EFC99D.gpg
 RUN apt-get update && apt-get -q -y install prometheus-node-exporter
 
 # Copy Start Service Scripts
-RUN mkdir -p /etc/my_init.d
-COPY ./services/run-app.sh /etc/my_init.d/run-app
-RUN chmod +x /etc/my_init.d/run-app
+#RUN mkdir -p /etc/my_init.d
+#COPY ./services/run-app.sh /etc/my_init.d/run-app
+#RUN chmod +x /etc/my_init.d/run-app
 
 # Supervisor
 COPY supervisor/supervisord.conf /etc/supervisor/supervisord.conf
@@ -102,7 +103,10 @@ COPY confd/conf.d/ /etc/confd/conf.d/
 COPY confd/templates/ /etc/confd/templates/
 
 RUN chmod +x /usr/local/bin/confd \
-    && chmod +x /etc/my_init.d/run-app
+    && mkdir -p /var/run/
+
+#\
+#    && chmod +x /etc/my_init.d/run-app
 
 # Expose the Nginx Log to Docker
 RUN ln -sf /dev/stdout /var/log/nginx/access.log \
