@@ -63,10 +63,10 @@ RUN apt-get -q -y install \
     php-memcached
 RUN command -v php
 
-#COPY ./php/php.ini /etc/php/7.2/cli/php.ini
-#COPY ./php/xdebug.ini /etc/php/7.2/mods-available/xdebug.ini
-#COPY ./php/www.conf /etc/php/7.2/fpm/pool.d/www.conf
-#COPY ./php/php-fpm.conf /etc/php/7.2/fpm/php-fpm.conf
+COPY ./php/php.ini /etc/php/7.2/cli/php.ini
+COPY ./php/xdebug.ini /etc/php/7.2/mods-available/xdebug.ini
+COPY ./php/www.conf /etc/php/7.2/fpm/pool.d/www.conf
+COPY ./php/php-fpm.conf /etc/php/7.2/fpm/php-fpm.conf
 
 # Install Composer
 RUN php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer
@@ -90,6 +90,7 @@ RUN apt-get update && apt-get -q -y install prometheus-node-exporter
 
 # Copy Start Service Scripts
 RUN mkdir -p /etc/my_init.d
+COPY ./services/setup.sh /etc/my_init.d/setup.sh
 COPY ./services/run-app.sh /etc/my_init.d/run-app
 RUN chmod +x /etc/my_init.d/run-app
 
@@ -108,7 +109,7 @@ RUN chmod +x /usr/local/bin/confd \
 
 RUN chown -R www-data:www-data /var/www/html
 
-# Expose the Nginx Log to Docker~
+# Expose the Logs to Docker
 RUN ln -sf /dev/stdout /var/log/nginx/access.log \
     && ln -sf /dev/stderr /var/log/nginx/error.log \
     && ln -sf /dev/stdout /var/log/php7.2-fpm.log
