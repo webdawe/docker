@@ -31,8 +31,8 @@ RUN apt-get update \
     && apt-get -q -y update \
     && apt-get -q -y install nginx-full
 
-#ADD nginx/nginx.conf /etc/nginx/nginx.conf
-#ADD nginx/default.conf /etc/nginx/sites-enabled/default
+ADD nginx/nginx.conf /etc/nginx/nginx.conf
+ADD nginx/default.conf /etc/nginx/sites-available/default
 
 # PHP
 RUN add-apt-repository ppa:ondrej/php && apt-get update
