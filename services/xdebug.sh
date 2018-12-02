@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 # Override XDebug variables from docker-compose.yml
 echo "\n"
 echo ">>> Configuring XDebug Settings."
@@ -12,3 +14,4 @@ sed -i "s/xdebug\.idekey\=.*/xdebug\.idekey\="$XDEBUG_IDEKEY"/g" /etc/php/7.2/mo
 
 echo "\n"
 cat /etc/php/7.2/mods-available/xdebug.ini
+echo "\n"

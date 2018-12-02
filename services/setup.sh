@@ -13,13 +13,15 @@ if [ "$env" != "local" ]; then
     rm -rf /etc/php/7.2/mods-available/xdebug.ini
 fi
 
-if [ "$env" == "local" ] && [ ! -z "$DEV_UID" ]; then
+if [ "$env" == "local" ]; then
 
     sh /usr/sbin/xdebug.sh
 
-    echo "Changing www-data UID to $DEV_UID"
-    echo "The UID should only be changed in development environments."
-    usermod -u $DEV_UID www-data
+    if [ ! -z "$DEV_UID" ]; then
+        echo "Changing www-data UID to $DEV_UID"
+        echo "The UID should only be changed in development environments."
+        usermod -u $DEV_UID www-data
+    fi
 fi
 
 confd -onetime -backend env

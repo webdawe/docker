@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-echo "\n"
+set -e
+
 echo ">>> Configuring PHP Settings."
 sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/7.2/cli/php.ini
 #sed -i "s/display_errors = .*/display_errors = On/" /etc/php/7.2/cli/php.ini
