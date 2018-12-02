@@ -44,4 +44,6 @@ else
     exit 1
 fi
 
+mkdir -p /run/php
+
 exec supervisord -c /etc/supervisor/supervisord.conf

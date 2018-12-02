@@ -29,7 +29,7 @@ RUN apt-get update \
     && apt-get -q -y install software-properties-common \
     && apt-add-repository ppa:nginx/development \
     && apt-get -q -y update \
-    && apt-get -q -y install nginx
+    && apt-get -q -y install nginx-full
 
 ADD nginx/nginx.conf /etc/nginx/nginx.conf
 ADD nginx/default.conf /etc/nginx/sites-enabled/default
@@ -89,9 +89,9 @@ RUN curl https://s3-eu-west-1.amazonaws.com/deb.robustperception.io/41EFC99D.gpg
 RUN apt-get update && apt-get -q -y install prometheus-node-exporter
 
 # Copy Start Service Scripts
-#RUN mkdir -p /etc/my_init.d
-#COPY ./services/run-app.sh /etc/my_init.d/run-app
-#RUN chmod +x /etc/my_init.d/run-app
+RUN mkdir -p /etc/my_init.d
+COPY ./services/run-app.sh /etc/my_init.d/run-app
+RUN chmod +x /etc/my_init.d/run-app
 
 # Supervisor
 COPY supervisor/supervisord.conf /etc/supervisor/supervisord.conf
@@ -103,12 +103,14 @@ COPY confd/conf.d/ /etc/confd/conf.d/
 COPY confd/templates/ /etc/confd/templates/
 
 RUN chmod +x /usr/local/bin/confd \
-    && mkdir -p /var/run/
+    && mkdir -p /var/run/ \
+    && chmod +x /etc/my_init.d/run-app
 
-#\
-#    && chmod +x /etc/my_init.d/run-app
+RUN chmod 744 /etc/nginx/sites-available/default
 
-# Expose the Nginx Log to Docker
+RUN chown -R www-data:www-data /var/www/html
+
+# Expose the Nginx Log to Docker~
 RUN ln -sf /dev/stdout /var/log/nginx/access.log \
     && ln -sf /dev/stderr /var/log/nginx/error.log
 
