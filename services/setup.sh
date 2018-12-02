@@ -1,39 +1,54 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
+set -e
+
+role=${CONTAINER_ROLE:-app}
 env=${APP_ENV:-production}
-echo "The Environment is set to: $env"
 
-echo "\n"
-echo ">>> Configuring PHP Settings."
-sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/7.2/cli/php.ini
-#sed -i "s/display_errors = .*/display_errors = On/" /etc/php/7.2/cli/php.ini
-sed -i "s/memory_limit = .*/memory_limit = 512M/" /etc/php/7.2/cli/php.ini
-sed -i "s/;date.timezone.*/date.timezone = UTC/" /etc/php/7.2/cli/php.ini
+if [ "$env" != "local" ]; then
+    echo ">>> Caching configuration..."
+    (cd /var/www/html && php artisan config:cache && php artisan route:cache)
 
-sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php/7.2/fpm/php.ini
-sed -i "s/memory_limit = .*/memory_limit = 512M/" /etc/php/7.2/fpm/php.ini
-sed -i "s/;date.timezone.*/date.timezone = UTC/" /etc/php/7.2/fpm/php.ini
+    echo ">>> Removing Xdebug..."
+    rm -rf /etc/php/7.2/mods-available/xdebug.ini
+fi
 
-sed -i "s/upload_max_filesize = .*/upload_max_filesize = 100M/" /etc/php/7.2/fpm/php.ini
-sed -i "s/post_max_size = .*/post_max_size = 100M/" /etc/php/7.2/fpm/php.ini
-sed -i "s/max_execution_time = .*/max_execution_time = 300/" /etc/php/7.2/fpm/php.ini
+if [ "$env" == "local" ] && [ ! -z "$DEV_UID" ]; then
 
-# Override XDebug variables from docker-compose.yml
-echo "\n"
-echo ">>> Configuring XDebug Settings."
-sed -i "s/xdebug\.remote_enable\=.*/xdebug\.remote_enable\="$XDEBUG_REMOTE_ENABLE"/g" /etc/php/7.2/mods-available/xdebug.ini
-sed -i "s/xdebug\.remote_autostart\=.*/xdebug\.remote_autostart\="$XDEBUG_REMOTE_AUTOSTART"/g" /etc/php/7.2/mods-available/xdebug.ini
-sed -i "s/xdebug\.remote_connect_back\=.*/xdebug\.remote_connect_back\="$XDEBUG_REMOTE_CONNECT_BACK"/g" /etc/php/7.2/mods-available/xdebug.ini
-sed -i "s/xdebug\.remote_host\=.*/xdebug\.remote_host\="$XDEBUG_HOST"/g" /etc/php/7.2/mods-available/xdebug.ini
-sed -i "s/xdebug\.remote_port\=.*/xdebug\.remote_port\="$XDEBUG_REMOTE_PORT"/g" /etc/php/7.2/mods-available/xdebug.ini
-sed -i "s/xdebug\.idekey\=.*/xdebug\.idekey\="$XDEBUG_IDEKEY"/g" /etc/php/7.2/mods-available/xdebug.ini
+    sh /usr/sbin/xdebug.sh
 
-#
-## Display contents of xdebug
-#cat "/etc/php/7.2/mods-available/xdebug.ini"
+    echo "Changing www-data UID to $DEV_UID"
+    echo "The UID should only be changed in development environments."
+    usermod -u $DEV_UID www-data
+fi
 
-#if [ "$env" != "local" ]; then
-#    echo "\n"
-#    echo ">>> Environment is not local, disabling XDebug."
-#    rm -rf "/etc/php/7.2/mods-available/xdebug.ini"
-#fi
+confd -onetime -backend env
+
+# App
+if [ "$role" = "app" ]; then
+
+    echo ">> Setting role to: [app]"
+    ln -sf /etc/supervisor/conf.d-available/app.conf /etc/supervisor/conf.d/app.conf
+
+# Queue
+elif [ "$role" = "queue" ]; then
+
+    echo ">> Setting role to: [queue]"
+    ln -sf /etc/supervisor/conf.d-available/queue.conf /etc/supervisor/conf.d/queue.conf
+
+# Scheduler
+elif [ "$role" = "scheduler" ]; then
+
+    echo ">> Setting role to: [scheduler]"
+    ln -sf /etc/supervisor/conf.d-available/scheduler.conf /etc/supervisor/conf.d/scheduler.conf
+
+else
+    echo ">> Could not match the container role \"$role\""
+    exit 1
+fi
+
+# Docker needs this line before it can run
+# the PHP-FPM service
+mkdir -p /run/php
+
+exec supervisord -c /etc/supervisor/supervisord.conf

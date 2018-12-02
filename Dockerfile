@@ -24,6 +24,19 @@ RUN ln -sf /usr/share/zoneinfo/Australia/Melbourne /etc/localtime
 RUN apt-get update \
     && apt-get -q -y install supervisor curl wget zip unzip git python2.7 sqlite3 htop lnav vim unattended-upgrades
 
+# Prometheus Monitoring
+RUN curl https://s3-eu-west-1.amazonaws.com/deb.robustperception.io/41EFC99D.gpg | apt-key add -
+RUN apt-get update && apt-get -q -y install prometheus-node-exporter
+
+# Supervisor
+COPY supervisor/supervisord.conf /etc/supervisor/supervisord.conf
+COPY supervisor/conf.d/*.conf /etc/supervisor/conf.d-available/
+
+# Conf
+ADD https://github.com/kelseyhightower/confd/releases/download/v0.11.0/confd-0.11.0-linux-amd64 /usr/local/bin/confd
+COPY confd/conf.d/ /etc/confd/conf.d/
+COPY confd/templates/ /etc/confd/templates/
+
 # Install Nginx
 RUN apt-get update \
     && apt-get -q -y install software-properties-common \
@@ -84,28 +97,17 @@ RUN curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 RUN apt-get -q -y update && apt-get -q -y install yarn
 
-# Prometheus Monitoring
-RUN curl https://s3-eu-west-1.amazonaws.com/deb.robustperception.io/41EFC99D.gpg | apt-key add -
-RUN apt-get update && apt-get -q -y install prometheus-node-exporter
-
 # Copy Start Service Scripts
 RUN mkdir -p /etc/my_init.d
-COPY ./services/setup.sh /etc/my_init.d/setup.sh
-COPY ./services/run-app.sh /etc/my_init.d/run-app
-RUN chmod +x /etc/my_init.d/run-app
+COPY ./services/xdebug.sh /usr/sbin/xdebug.sh
+COPY ./services/php.sh /etc/my_init.d/php.sh
+COPY ./services/setup.sh /etc/my_init.d/setup
 
-# Supervisor
-COPY supervisor/supervisord.conf /etc/supervisor/supervisord.conf
-COPY supervisor/conf.d/*.conf /etc/supervisor/conf.d-available/
-
-# Conf
-ADD https://github.com/kelseyhightower/confd/releases/download/v0.11.0/confd-0.11.0-linux-amd64 /usr/local/bin/confd
-COPY confd/conf.d/ /etc/confd/conf.d/
-COPY confd/templates/ /etc/confd/templates/
-
-RUN chmod +x /usr/local/bin/confd \
-    && mkdir -p /var/run/ \
-    && chmod +x /etc/my_init.d/run-app
+RUN chmod +x \
+    /etc/my_init.d/setup \
+    /etc/my_init.d/php.sh \
+    /usr/sbin/xdebug.sh \
+    /usr/local/bin/confd
 
 RUN chown -R www-data:www-data /var/www/html
 
