@@ -32,11 +32,6 @@ RUN apt-get update && apt-get -q -y install prometheus-node-exporter
 COPY supervisor/supervisord.conf /etc/supervisor/supervisord.conf
 COPY supervisor/conf.d/*.conf /etc/supervisor/conf.d-available/
 
-# Conf
-ADD https://github.com/kelseyhightower/confd/releases/download/v0.11.0/confd-0.11.0-linux-amd64 /usr/local/bin/confd
-COPY confd/conf.d/ /etc/confd/conf.d/
-COPY confd/templates/ /etc/confd/templates/
-
 # Install Nginx
 RUN apt-get update \
     && apt-get -q -y install software-properties-common \
@@ -96,6 +91,11 @@ RUN apt-get -q -y install nodejs
 RUN curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 RUN apt-get -q -y update && apt-get -q -y install yarn
+
+# Confd
+ADD https://github.com/kelseyhightower/confd/releases/download/v0.11.0/confd-0.11.0-linux-amd64 /usr/local/bin/confd
+COPY confd/conf.d/ /etc/confd/conf.d/
+COPY confd/templates/ /etc/confd/templates/
 
 # Copy Start Service Scripts
 RUN mkdir -p /etc/my_init.d
