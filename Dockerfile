@@ -109,8 +109,6 @@ RUN chmod +x \
     /usr/sbin/xdebug.sh \
     /usr/local/bin/confd
 
-
-
 RUN chown -R www-data:www-data /var/www/html
 
 # Expose the Logs to Docker
