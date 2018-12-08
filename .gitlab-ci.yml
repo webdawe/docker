@@ -1,28 +1,25 @@
-image: docker:latest
+before_script:
+  - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
 
-services:
-  - docker:dind
-
-stages:
-  - build
-  - deploy
-
+# Master
 build-master:
-  stage: build
+  variables:
+    IMAGE_TAG: $CI_REGISTRY_IMAGE/php
   script:
-    - docker build --pull -t "$DOCKER_NAME:$CI_COMMIT_REF_SLUG" .
-    - docker images
+    - echo "The image tag is $IMAGE_TAG"
+    - docker build --pull -t $IMAGE_TAG .
+    - docker push $IMAGE_TAG
   only:
     - master
 
-deploy-gitlab:
-  stage: deploy
+# Tags
+build-tag:
+  stage: build
+  only:
+    - tags
+  variables:
+    IMAGE_TAG: $CI_REGISTRY_IMAGE/php:$CI_COMMIT_TAG
   script:
-    - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" "$CI_REGISTRY" --password-stdin
-    - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
-
-deploy-docker:
-  stage: deploy
-  script:
-    - echo "$DOCKER_CLOUD_PASSWORD" | docker login -u "$DOCKER_CLOUD_USER" "$DOCKER_CLOUD_REGISTRY" --password-stdin
-    - docker push "$DOCKER_NAME":latest
+    - echo "The image tag is $IMAGE_TAG"
+    - docker build --pull -t $IMAGE_TAG .
+    - docker push $IMAGE_TAG
