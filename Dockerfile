@@ -94,8 +94,8 @@ RUN apt-get -q -y update && apt-get -q -y install yarn
 
 # Confd
 ADD https://github.com/kelseyhightower/confd/releases/download/v0.11.0/confd-0.11.0-linux-amd64 /usr/local/bin/confd
-COPY confd/conf.d/ /etc/confd/conf.d/
-COPY confd/templates/ /etc/confd/templates/
+COPY ./confd/conf.d/ /etc/confd/conf.d/
+COPY ./confd/templates/ /etc/confd/templates/
 
 # Copy Start Service Scripts
 RUN mkdir -p /etc/my_init.d
