@@ -74,11 +74,13 @@ docker build -t docker-xebug_web .
 docker run -it docker-xebug_web
 ```
 
-## Docker Swarm with Digital Ocean
+## Docker Machine with Digital Ocean
+```
 docker-machine create --driver digitalocean \
     --digitalocean-image ubuntu-18-04-x64 \
     --digitalocean-access-token $DOTOKEN \
     rob-test-1
+```
 
 ### See list of Docker Machines Created
 docker-machine ls
