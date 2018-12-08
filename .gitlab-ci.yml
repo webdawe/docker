@@ -10,20 +10,19 @@ stages:
 build-master:
   stage: build
   script:
-    - docker build --pull -t "$CI_REGISTRY_IMAGE" .
+    - docker build --pull -t "$CI_PROJECT_NAME" .
+    - docker images
   only:
-    - master
-
-build-tags:
-  stage: build
-  script:
-    - docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" .
-    - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
-  except:
     - master
 
 deploy-gitlab:
   stage: deploy
   script:
     - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" "$CI_REGISTRY" --password-stdin
-    - docker push "$CI_REGISTRY_IMAGE"
+    - docker push "$CI_PROJECT_NAME"
+
+deploy-docker:
+  stage: deploy
+  script:
+    - echo "DOCKER_CLOUD_PASSWORD" | docker login -u "DOCKER_CLOUD_USER" --password-stdin
+    - docker push "$CI_PROJECT_NAME"
