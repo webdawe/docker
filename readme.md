@@ -14,11 +14,24 @@ Baseimage-docker is a special Docker image that is configured for correct use wi
 
 ## Run the application with:
 ```
-XDEBUG_HOST=192.168.0.6 docker-compose up
+docker-compose up --build
 ```
 
-## View in Chrome
+## Connect to application with:
+```
+docker exec -it docker-xebug_web_1 bash
+```
+
+## View site in Chrome
 > http://localhost:7000
+
+## Application has one of 3 website settings: (.docker.env)
+```
+app
+queue
+scheduler
+```
+
 
 ## Building Docker Image and Pushing to Docker Cloud
 ```

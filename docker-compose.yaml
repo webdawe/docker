@@ -5,8 +5,8 @@ services:
     env_file:
       - .docker.env
     environment:
-      CONTAINER_ROLE: app
-      APP_ENV: local
+      CONTAINER_ROLE: app # [app, queue, scheduler]
+      APP_ENV: local # [local, staging, production]
     volumes:
       - ./app:/var/www/html
     ports:
