@@ -93,9 +93,9 @@ RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources
 RUN apt-get -q -y update && apt-get -q -y install yarn
 
 # Confd
-#ADD https://github.com/kelseyhightower/confd/releases/download/v0.11.0/confd-0.11.0-linux-amd64 /usr/local/bin/confd
-#COPY ./confd/conf.d /etc/confd/conf.d
-#COPY ./confd/templates /etc/confd/templates
+ADD https://github.com/kelseyhightower/confd/releases/download/v0.11.0/confd-0.11.0-linux-amd64 /usr/local/bin/confd
+COPY ./confd/templates /etc/confd/templates
+COPY ./confd/conf.d /etc/confd/conf.d
 
 # Copy Start Service Scripts
 RUN mkdir -p /etc/my_init.d
@@ -106,8 +106,8 @@ COPY ./services/setup.sh /etc/my_init.d/setup
 RUN chmod +x \
     /etc/my_init.d/setup \
     /etc/my_init.d/php.sh \
-    /usr/sbin/xdebug.sh
-    # /usr/local/bin/confd -- # Disabled confd, because Gitlab Docker has an issue copying files to it.
+    /usr/sbin/xdebug.sh \
+    /usr/local/bin/confd
 
 
 
