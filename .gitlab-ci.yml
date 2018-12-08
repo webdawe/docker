@@ -4,8 +4,7 @@ services:
   - docker:dind
 
 before_script:
-#  - docker login -u "$DOCKER_CLOUD_USER" -p "$DOCKER_CLOUD_PASSWORD" $DOCKER_CLOUD_REGISTRY
-  - echo "$DOCKER_CLOUD_PASSWORD" | docker login -u "$DOCKER_CLOUD_USER" "$DOCKER_CLOUD_REGISTRY" --password-stdin
+  - docker login -u "$DOCKER_CLOUD_USER" -p "$DOCKER_CLOUD_PASSWORD" $DOCKER_CLOUD_REGISTRY
 
 # Master
 build-master:
