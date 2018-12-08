@@ -10,7 +10,7 @@ stages:
 build-master:
   stage: build
   script:
-    - docker build --pull -t "$CI_PROJECT_NAME" .
+    - docker build --pull -t "$DOCKER_NAME" .
     - docker images
   only:
     - master
@@ -19,10 +19,10 @@ deploy-gitlab:
   stage: deploy
   script:
     - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" "$CI_REGISTRY" --password-stdin
-    - docker push "$CI_PROJECT_NAME"
+    - docker push "$DOCKER_NAME"
 
 deploy-docker:
   stage: deploy
   script:
-    - echo "DOCKER_CLOUD_PASSWORD" | docker login -u "DOCKER_CLOUD_USER" --password-stdin
-    - docker push "$CI_PROJECT_NAME"
+    - echo "$DOCKER_CLOUD_PASSWORD" | docker login -u "$DOCKER_CLOUD_USER" --password-stdin
+    - docker push "$DOCKER_NAME":latest
