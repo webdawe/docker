@@ -90,6 +90,7 @@ docker-machine ls
 ### Set your Env to the machine
 ```
 docker-machine env rob-test-1
+docker-machine ip rob-test-1
 ```
 
 ## Login to Git Lab
@@ -98,6 +99,4 @@ docker login registy.gitlab.com
 
 docker run -d --restart=unless-stopped -p 80:80 \
     registry.gitlab.com/robmellett/docker-xdebug/php
-    
-docker-machine ip rob-test-1
 ```
