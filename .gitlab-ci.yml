@@ -1,7 +1,7 @@
 image: docker:latest
 
 services:
-- docker:dind
+  - docker:dind
 
 before_script:
   - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" "$CI_REGISTRY" --password-stdin
@@ -9,15 +9,15 @@ before_script:
 build-master:
   stage: build
   script:
-  - docker build --pull -t "$CI_REGISTRY_IMAGE" .
-  - docker push "$CI_REGISTRY_IMAGE"
+    - docker build --pull -t "$CI_REGISTRY_IMAGE" .
+    - docker push "$CI_REGISTRY_IMAGE"
   only:
-  - master
+    - master
 
 build:
   stage: build
   script:
-  - docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" .
-  - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
+    - docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" .
+    - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
   except:
-  - master
+    - master
