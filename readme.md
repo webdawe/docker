@@ -32,7 +32,6 @@ queue
 scheduler
 ```
 
-
 ## Building Docker Image and Pushing to Docker Cloud
 ```
 docker build -t beyondlimits99/php7.2-nginx .
@@ -49,6 +48,7 @@ docker container --help
 ```
 docker image ls
 ```
+
 ## List Docker containers (running, all, all in quiet mode)
 ```
 docker container ls
@@ -83,15 +83,21 @@ docker-machine create --driver digitalocean \
 ```
 
 ### See list of Docker Machines Created
+```
 docker-machine ls
+```
 
 ### Set your Env to the machine
+```
 docker-machine env rob-test-1
+```
 
 ## Login to Git Lab
+```
 docker login registy.gitlab.com
 
 docker run -d --restart=unless-stopped -p 80:80 \
     registry.gitlab.com/robmellett/docker-xdebug/php
-
+    
 docker-machine ip rob-test-1
+```
