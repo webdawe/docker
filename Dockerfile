@@ -125,4 +125,4 @@ RUN apt-get -q -y clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 WORKDIR /var/www/html
 
-EXPOSE 80 443
+EXPOSE 80 443 9100

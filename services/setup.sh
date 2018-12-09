@@ -6,11 +6,15 @@ role=${CONTAINER_ROLE:-app}
 env=${APP_ENV:-production}
 
 if [ "$env" != "local" ]; then
-    echo ">>> Caching configuration..."
-    (cd /var/www/html && php artisan config:cache && php artisan route:cache)
+
+    # echo ">>> Caching configuration..."
+    # (cd /var/www/html && php artisan config:cache && php artisan route:cache)
 
     echo ">>> Removing Xdebug..."
     rm -rf /etc/php/7.2/mods-available/xdebug.ini
+
+    echo ">> Configuring Prometheus"
+    ln -sf /etc/supervisor/conf.d-available/prometheus.conf /etc/supervisor/conf.d/prometheus.conf
 fi
 
 if [ "$env" == "local" ]; then
