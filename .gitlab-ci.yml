@@ -15,7 +15,7 @@ build-master:
     IMAGE_TAG: $CI_REGISTRY_IMAGE
   script:
     - echo "The image tag is $IMAGE_TAG"
-    - deploy.sh
+    - sh deploy.sh
     - docker build --pull -t $IMAGE_TAG .
     - docker push $IMAGE_TAG
   only:
