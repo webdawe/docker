@@ -10,6 +10,7 @@ before_script:
   - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin
 
 build-php-7.3:
+  stage: build
   variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE/php:7.3
   script:
@@ -21,6 +22,7 @@ build-php-7.3:
     - master
 
 build-php-7.2:
+  stage: build
   variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE/php:7.2
   script:
@@ -31,6 +33,7 @@ build-php-7.2:
     - master
 
 build-php-7.1:
+  stage: build
   variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE/php:7.1
   script:
@@ -42,6 +45,7 @@ build-php-7.1:
     - master
 
 build-php-7.0:
+  stage: build
   variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE/php:7.0
   script:
@@ -53,6 +57,7 @@ build-php-7.0:
     - master
 
 build-php-5.6:
+  stage: build
   variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE/php:5.6
   script:
