@@ -10,12 +10,57 @@ before_script:
   - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin
 
 # Master
-build-master:
+build-php-7.3:
   variables:
-    IMAGE_TAG: $CI_REGISTRY_IMAGE/php
+    IMAGE_TAG: $CI_REGISTRY_IMAGE/php:7.3
   script:
-    - ls -la
-    - build.sh
+    - echo "The image tag is $IMAGE_TAG"
+    - sed "s/php7.2/php7.3/g" "docker-compose.yaml"
+    - docker build --pull -t $IMAGE_TAG .
+    - docker push $IMAGE_TAG
+  only:
+    - master
+
+build-php-7.2:
+  variables:
+    IMAGE_TAG: $CI_REGISTRY_IMAGE/php:7.2
+  script:
+    - echo "The image tag is $IMAGE_TAG"
+    - docker build --pull -t $IMAGE_TAG .
+    - docker push $IMAGE_TAG
+  only:
+    - master
+
+build-php-7.1:
+  variables:
+    IMAGE_TAG: $CI_REGISTRY_IMAGE/php:7.1
+  script:
+    - echo "The image tag is $IMAGE_TAG"
+    - sed "s/php7.2/php7.1/g" "docker-compose.yaml"
+    - docker build --pull -t $IMAGE_TAG .
+    - docker push $IMAGE_TAG
+  only:
+    - master
+
+build-php-7.0:
+  variables:
+    IMAGE_TAG: $CI_REGISTRY_IMAGE/php:7.0
+  script:
+    - echo "The image tag is $IMAGE_TAG"
+    - sed "s/php7.2/php7.0/g" "docker-compose.yaml"
+    - docker build --pull -t $IMAGE_TAG .
+    - docker push $IMAGE_TAG
+  only:
+    - master
+
+build-php-5.6:
+  variables:
+    IMAGE_TAG: $CI_REGISTRY_IMAGE/php:5.6
+  script:
+    - echo "The image tag is $IMAGE_TAG"
+    - sed "s/php7.2/php5.6/g" "docker-compose.yaml"
+    - docker build --pull -t $IMAGE_TAG .
+    - docker push $IMAGE_TAG
   only:
     - master
 
