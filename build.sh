@@ -9,8 +9,10 @@ for version in "${versions[@]}"; do
 
   echo ">>> Creating docker image for: $version"
 
-  sed 's/$oldstring/$newstring/g' 'docker-compose.yaml'
+  sed "s/$oldstring/$newstring/g" "docker-compose.yaml"
 
-  echo ""
+  echo "The image tag is $IMAGE_TAG"
+  docker build --pull -t $IMAGE_TAG:$version .
+  docker push $IMAGE_TAG:$version
 
 done

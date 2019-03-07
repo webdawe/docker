@@ -14,9 +14,7 @@ build-master:
   variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE/php
   script:
-    - echo "The image tag is $IMAGE_TAG"
-    - docker build --pull -t $IMAGE_TAG .
-    - docker push $IMAGE_TAG
+    - ./build.sh
   only:
     - master
 
