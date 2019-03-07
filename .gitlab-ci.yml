@@ -15,7 +15,7 @@ build-master:
     IMAGE_TAG: $CI_REGISTRY_IMAGE/php
   script:
     - ls -la
-    - ./build.sh
+    - build.sh
   only:
     - master
 
