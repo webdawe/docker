@@ -8,6 +8,7 @@ services:
 # `echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" "$CI_REGISTRY" --password-stdin`
 before_script:
   - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin
+  - RUN apk update && apk add bash
 
 build-master:
   stage: build
@@ -15,6 +16,7 @@ build-master:
     IMAGE_TAG: $CI_REGISTRY_IMAGE
   script:
     - echo "The image tag is $IMAGE_TAG"
+    - ls -la
     - sh deploy.sh
     - docker build --pull -t $IMAGE_TAG .
     - docker push $IMAGE_TAG
