@@ -14,7 +14,7 @@ for version in "${versions[@]}"; do
 
   echo ">>> Creating docker image for: $version"
 
-  sed "s/$oldstring/$newstring/g" "Dockerfile"
+  sed -i.bak -e "s/$oldstring/$newstring/g" "Dockerfile"
   sed -i.bak -e "s/7.2/7.3/g" "Dockerfile"
 
   echo "The image tag is $IMAGE_TAG"
