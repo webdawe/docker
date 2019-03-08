@@ -9,6 +9,8 @@ ENV XDEBUG_HOST=${XDEBUG_HOST}
 ENV XDEBUG_REMOTE_PORT=${XDEBUG_REMOTE_PORT}
 ENV XDEBUG_IDEKEY=${XDEBUG_IDEKEY}
 
+ENV PHP_VERSION=${PHP_VERSION}
+
 # Ensure UTF-8
 RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
@@ -47,7 +49,7 @@ RUN add-apt-repository ppa:ondrej/php && apt-get update
 RUN apt-get -q -y install \
     php7.2 \
     php7.2-fpm \
-    php7.2-common \ 
+    php7.2-common \
     php7.2-cli \
     php7.2-mbstring \
     php7.2-xml \
