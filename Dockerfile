@@ -127,4 +127,5 @@ RUN apt-get -q -y clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 WORKDIR /var/www/html
 
+# Expose Ports for Web, Prometheus node_exporter
 EXPOSE 80 443 9100

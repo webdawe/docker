@@ -2,7 +2,6 @@ version: '3'
 services:
   web:
     image: beyondlimits99/php:7.2
-    build: ./
     env_file:
       - .docker.env
     environment:
@@ -11,8 +10,8 @@ services:
     volumes:
       - ./app:/var/www/html
     ports:
-      - 7000:80
-      - 7090:9100
+      - 7000:80 # Web
+      - 7090:9100 # Prometheus, node_exporter
     tty: true
 volumes:
   dbdata:
