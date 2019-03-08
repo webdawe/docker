@@ -10,6 +10,7 @@ for version in "${versions[@]}"; do
 
   echo ">>> Creating docker image for: $version"
 
+  # Search and replace PHP Versions in all files
   grep -rli "$oldstring" * | xargs -i@ sed -i "s/$oldstring/$newstring/g" @
 
   echo "The image tag is $IMAGE_TAG"

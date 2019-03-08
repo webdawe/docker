@@ -10,6 +10,7 @@ before_script:
   - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin
   - apk add --no-cache bash
 
+# Master
 build-master:
   stage: build
   variables:
