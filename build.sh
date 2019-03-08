@@ -2,9 +2,10 @@
 
 versions=('7.3' '7.2' '7.1' '7.0' '5.6')
 
+oldstring="7.2" # What is currently in the file
+
 for version in "${versions[@]}"; do
 
-  oldstring="7.2" # What is currently in the file
   newstring=$version
   IMAGE_TAG=beyondlimits99/php
 
@@ -18,5 +19,8 @@ for version in "${versions[@]}"; do
 
   # Push to the Docker Repo
   docker push $IMAGE_TAG:$version
+
+  # Switch to next version
+  oldstring=$version
 
 done
