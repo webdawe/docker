@@ -98,5 +98,22 @@ docker-machine ip rob-test-1
 docker login registy.gitlab.com
 
 docker run -d --restart=unless-stopped -p 80:80 \
-    registry.gitlab.com/robmellett/docker-xdebug/php
+    registry.gitlab.com/robmellett/docker-xdebug/php:7.2
 ```
+
+## Connecting via XDebug
+Update values in the `.docker.env` file
+- `XDEBUG_HOST` must be equal to the IP of your local host machine. Run `ip -a` to see it, not the Docker IP.
+
+### Troubleshooting XDebug
+`cat /etc/php/7.0/mods-available/xdebug.ini`
+
+`cat /tmp/xdebug_remote.log`
+
+`service php7.2-fpm reload`
+
+### XDebug Resources
+- https://serversforhackers.com/c/getting-xdebug-working
+- https://www.jetbrains.com/help/phpstorm/troubleshooting-php-debugging.html
+- https://www.jetbrains.com/help/phpstorm/configuring-xdebug.html
+- https://www.jetbrains.com/help/phpstorm/creating-a-php-debug-server-configuration.html
