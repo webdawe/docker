@@ -1,7 +1,7 @@
 version: '3'
 services:
   web:
-    image: beyondlimits99/php:7.0
+    image: beyondlimits99/php:7.2
     hostname: docker
     env_file:
       - .docker.env

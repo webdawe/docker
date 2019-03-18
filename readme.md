@@ -46,7 +46,7 @@ Update values in the `.docker.env` file
 ![PHPStorm XDebug Settings 2](wiki/xdebug-server-settings-2.png "PHPStorm XDebug Settings 2")
 
 ### Troubleshooting XDebug
-`cat /etc/php/7.0/mods-available/xdebug.ini`
+`cat /etc/php/7.2/mods-available/xdebug.ini`
 
 `cat /tmp/xdebug_remote.log`
 
