@@ -32,85 +32,18 @@ queue
 scheduler
 ```
 
-## Building Docker Image and Pushing to Docker Cloud
-```
-docker build -t beyondlimits99/php7.2-nginx .
-
-docker push beyondlimits99/php7.2-nginx
-```
-
-## List Docker CLI commands
-```docker
-docker container --help
-```
-
-## List Docker images
-```
-docker image ls
-```
-
-## List Docker containers (running, all, all in quiet mode)
-```
-docker container ls
-docker container ls --all
-docker container ls -aq
-```
-## Run Specific Image
-```
-docker run -it docker-xebug_web_1 /bin/bash
-```
-
-## Delete all containers
-```
-docker rm $(docker ps -a -q)
-```
-
-## Delete all images
-```
-docker rmi $(docker images -q)
-
-docker build -t docker-xebug_web . 
-
-docker run -it docker-xebug_web
-```
-
-## Docker Machine with Digital Ocean
-```
-docker-machine create --driver digitalocean \
-    --digitalocean-image ubuntu-18-04-x64 \
-    --digitalocean-access-token $DOTOKEN \
-    rob-test-1
-```
-
-### See list of Docker Machines Created
-```
-docker-machine ls
-```
-
-### Set your Env to the machine
-```
-docker-machine env rob-test-1
-docker-machine ip rob-test-1
-```
-
-## Login to Git Lab
-```
-docker login registy.gitlab.com
-
-docker run -d --restart=unless-stopped -p 80:80 \
-    registry.gitlab.com/robmellett/docker-xdebug/php:7.2
-```
-
 ## Connecting via XDebug
+Make sure the website is in `/var/www/html/`, Nginx is configured to served pages from `/var/www/html/public`.
+
 Update values in the `.docker.env` file
 - `XDEBUG_HOST` must be equal to the IP of your local host machine. Run `ip -a` to see it, not the Docker IP.
 
 ## Configure PHPStorm using these settings
 1. Configure Project Path Mappings
-![alt text](wiki/xdebug-server-settings-1.png "PHPStorm XDebug Settings 1")
+![PHPStorm XDebug Settings 1](wiki/xdebug-server-settings-1.png "PHPStorm XDebug Settings 1")
 
 2. Configure PHPStorm XDebug Connection Settings
-![alt text](wiki/xdebug-server-settings-2.png "PHPStorm XDebug Settings 2")
+![PHPStorm XDebug Settings 2](wiki/xdebug-server-settings-2.png "PHPStorm XDebug Settings 2")
 
 ### Troubleshooting XDebug
 `cat /etc/php/7.0/mods-available/xdebug.ini`
