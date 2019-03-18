@@ -105,6 +105,11 @@ docker run -d --restart=unless-stopped -p 80:80 \
 Update values in the `.docker.env` file
 - `XDEBUG_HOST` must be equal to the IP of your local host machine. Run `ip -a` to see it, not the Docker IP.
 
+## Configure PHPStorm using these settings
+![alt text](wiki/xdebug-server-settings-1.png "PHPStorm XDebug Settings 1")
+
+![alt text](wiki/xdebug-server-settings-2.png "PHPStorm XDebug Settings 2")
+
 ### Troubleshooting XDebug
 `cat /etc/php/7.0/mods-available/xdebug.ini`
 
