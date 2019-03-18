@@ -1,7 +1,8 @@
 version: '3'
 services:
   web:
-    image: beyondlimits99/php:7.2
+    image: beyondlimits99/php:7.0
+    hostname: test # Must match PHPSTORM server name
     env_file:
       - .docker.env
     environment:
