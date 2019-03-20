@@ -6,7 +6,7 @@ currentversion="7.2" # What is currently in the Dockerfile
 
 for version in "${versions[@]}"; do
 
-  IMAGE_TAG=$CI_REGISTRY_IMAGE/php
+  IMAGE_TAG=$CI_REGISTRY_IMAGE/lemp
 
   echo ">>> Creating docker image for: $version"
 
