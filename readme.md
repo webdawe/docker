@@ -33,7 +33,7 @@ scheduler
 ```
 
 ## Connecting via XDebug
-Make sure the website is in `/var/www/html/`, Nginx is configured to served pages from `/var/www/html/public`.
+Make sure the website is in `/var/www/html/`, Nginx is configured to serve pages from `/var/www/html/public`.
 
 Update values in the `.docker.env` file
 - `XDEBUG_HOST` must be equal to the IP of your local host machine. Run `ip -a` to see it, not the Docker IP.
@@ -44,6 +44,8 @@ Update values in the `.docker.env` file
 
 2. Configure PHPStorm XDebug Connection Settings
 ![PHPStorm XDebug Settings 2](wiki/xdebug-server-settings-2.png "PHPStorm XDebug Settings 2")
+
+3. Set a breakpoint in Phpstorm and you should be good to go
 
 ### Troubleshooting XDebug
 `cat /etc/php/7.2/mods-available/xdebug.ini`
@@ -57,3 +59,35 @@ Update values in the `.docker.env` file
 - https://www.jetbrains.com/help/phpstorm/troubleshooting-php-debugging.html
 - https://www.jetbrains.com/help/phpstorm/configuring-xdebug.html
 - https://www.jetbrains.com/help/phpstorm/creating-a-php-debug-server-configuration.html
+
+## Connecting to a Docker Database Instance (Mysql/Postgres)
+
+To get the port number on your local machine
+`docker container ls`
+
+```
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                              NAMES
+f44940c74964        postgres            "docker-entrypoint.s…"   12 minutes ago      Up 11 minutes       5432/tcp, 0.0.0.0:8001->3306/tcp   docker-postgres_db_1
+b5d95aa50723        adminer             "entrypoint.sh docke…"   14 minutes ago      Up 11 minutes       0.0.0.0:8080->8080/tcp             docker-postgres_adminer_1
+
+```
+
+PORT = 5432
+
+Run this command with the container running.
+
+`docker inspect docker-postgres_db_1 | grep IPAddress`
+
+```
+"SecondaryIPAddresses": null,
+"IPAddress": "",
+    "IPAddress": "172.20.0.3",
+
+```
+
+Host = 172.20.0.3
+
+Then enter this as the HOST address in Datagrip.
+
+![Datagrip Server Settings 1](wiki/datagrip-server-settings.png "Datagrip Server Settings 1")
+
