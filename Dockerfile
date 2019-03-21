@@ -88,7 +88,7 @@ RUN curl --silent --location https://deb.nodesource.com/setup_9.x | bash - && ap
 RUN apt-get -q -y install nodejs
 
 # Yarn
-RUN curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN wget -qO - https://raw.githubusercontent.com/yarnpkg/releases/gh-pages/debian/pubkey.gpg | sudo apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 RUN apt-get -q -y update && apt-get -q -y install yarn
 
