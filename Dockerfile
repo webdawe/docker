@@ -65,6 +65,7 @@ RUN apt-get -q -y install \
     php7.2-intl \
     php7.2-imap \
     php-mysql \
+    php-pgsql \
     php-curl \
     php-zip \
     php-xdebug \
