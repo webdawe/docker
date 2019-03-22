@@ -43,7 +43,7 @@ Update values in the `.docker.env` file
 1. Configure PHPStorm XDebug Configuration Settings
 ![PHPStorm XDebug Settings 1](wiki/xdebug-server-settings-2.png "PHPStorm XDebug Settings 2")
 
-2. Configure PHPStorm XDBG Proxy Settings.  Make sure `IP Address` matches your local machine IP
+2. Configure PHPStorm DBGp Proxy Settings.  Make sure `IP Address` matches your local machine IP
 ![PHPStorm XDebug Settings 2](wiki/xdebug-server-settings-4.png "PHPStorm XDebug Settings 1")
 
 3. Configure Project Path Mappings
