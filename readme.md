@@ -1,4 +1,4 @@
-### A base Docker image with Ubuntu (16.04), Php (Xdebug), Composer, Nginx, NPM, Yarn, Prometheus Node Exporter
+### A base Docker image with Ubuntu (18.04), Php (Xdebug), Composer, Nginx, NPM, Yarn, Prometheus Node Exporter
 
 ## Base Image 
 > http://phusion.github.io/baseimage-docker/
