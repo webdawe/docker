@@ -1,4 +1,4 @@
-FROM phusion/baseimage:latest
+FROM phusion/baseimage:0.11
 LABEL Rob Mellett <robmellett@gmail.com>
 
 # Environmental Configuration
