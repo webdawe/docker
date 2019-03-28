@@ -14,7 +14,7 @@ RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
 
-# Use UTC Time
+# Set Timezone to UTC
 # RUN ln -sf /usr/share/zoneinfo/UTC /etc/localtime
 
 # Set Timezone to Melbourne, Australia
