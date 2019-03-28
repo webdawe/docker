@@ -15,10 +15,10 @@ ENV LANG en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
 
 # Set Timezone to UTC
-# RUN ln -sf /usr/share/zoneinfo/UTC /etc/localtime
+RUN ln -sf /usr/share/zoneinfo/UTC /etc/localtime
 
 # Set Timezone to Melbourne, Australia
-RUN ln -sf /usr/share/zoneinfo/Australia/Melbourne /etc/localtime
+# RUN ln -sf /usr/share/zoneinfo/Australia/Melbourne /etc/localtime
 
 # Install Recommended Packages
 RUN apt-get update \
