@@ -12,6 +12,14 @@ Baseimage-docker is a special Docker image that is configured for correct use wi
 - Mechanisms for easily running multiple processes, without violating the Docker philosophy.
 - You can use it as a base for your own Docker images.
 
+## Docker Versions
+You can use the following docker images
+- robmellett/lemp:7.3
+- robmellett/lemp:7.2
+- robmellett/lemp:7.1
+- robmellett/lemp:7.0
+- robmellett/lemp:5.6
+
 ## Run the application with:
 ```
 docker-compose up --build
