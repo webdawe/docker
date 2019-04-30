@@ -11,9 +11,18 @@ services:
       APP_ENV: local # [local, staging, production]
     volumes:
       - ./app:/var/www/html
+    networks:
+      default:
+        ipv4_address: 172.19.0.5  
     ports:
       - 7000:80 # Web
       - 7090:9100 # Prometheus, node_exporter
     tty: true
+    
 volumes:
   dbdata:
+  
+networks:
+  default:
+    external:
+      name: acme 
