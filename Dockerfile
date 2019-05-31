@@ -20,6 +20,10 @@ RUN ln -sf /usr/share/zoneinfo/UTC /etc/localtime
 # Set Timezone to Melbourne, Australia
 # RUN ln -sf /usr/share/zoneinfo/Australia/Melbourne /etc/localtime
 
+# Add New User to run apps under
+RUN useradd -rm -d /home/ubuntu -s /bin/bash -g root -G sudo -u 1000 ubuntu
+RUN usermod -aG www-data ubuntu
+
 # Install Recommended Packages
 RUN apt-get update \
     && apt-get -q -y install rsync supervisor curl wget zip unzip git sqlite3 htop lnav vim unattended-upgrades
@@ -110,7 +114,7 @@ RUN chmod +x \
     /usr/sbin/xdebug.sh \
     /usr/local/bin/confd
 
-RUN chown -R www-data:www-data /var/www/html
+RUN chown -R ubuntu:www-data /var/www/html
 
 # Expose the Logs to Docker
 RUN ln -sf /dev/stdout /var/log/nginx/access.log \
@@ -124,6 +128,7 @@ CMD ["/sbin/my_init"]
 # Clean up APT when done to minimise filesize.
 RUN apt-get -q -y clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+USER ubuntu
 WORKDIR /var/www/html
 
 # Expose Ports for Web, Prometheus node_exporter
