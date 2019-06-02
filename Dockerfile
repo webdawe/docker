@@ -26,7 +26,7 @@ RUN usermod -aG www-data ubuntu
 
 # Install Recommended Packages
 RUN apt-get update \
-    && apt-get -q -y install rsync supervisor curl wget zip unzip git sqlite3 htop lnav vim unattended-upgrades
+    && apt-get -q -y install rsync supervisor curl wget zip unzip git sqlite3 htop lnav vim make libpng-dev pngquant unattended-upgrades
 
 # Prometheus Monitoring
 RUN curl https://s3-eu-west-1.amazonaws.com/deb.robustperception.io/41EFC99D.gpg | apt-key add -
