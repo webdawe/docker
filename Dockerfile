@@ -128,7 +128,7 @@ CMD ["/sbin/my_init"]
 # Clean up APT when done to minimise filesize.
 RUN apt-get -q -y clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-USER ubuntu
+# Set working directory to the project
 WORKDIR /var/www/html
 
 # Expose Ports for Web/HTTPS & Prometheus node_exporter
