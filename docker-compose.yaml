@@ -2,7 +2,7 @@ version: '3'
 services:
   web:
     image: robmellett/lemp:7.2
-    hostname: docker
+    hostname: docker-web
     dns: 8.8.8.8
     env_file:
       - .docker.env
@@ -13,16 +13,16 @@ services:
       - ./app:/var/www/html
     networks:
       default:
-        ipv4_address: 172.19.0.5  
+#         ipv4_address: 172.19.0.10 # Use this for databases
     ports:
       - 7000:80 # Web
       - 7090:9100 # Prometheus, node_exporter
     tty: true
-    
+
 volumes:
   dbdata:
-  
+
 networks:
   default:
     external:
-      name: acme 
+      name: acme
