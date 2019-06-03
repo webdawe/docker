@@ -16,7 +16,7 @@ build-all-versions:
   variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE
   script:
-    - ./build.sh
+    - ./build-ci.sh
   only:
     - master
 
