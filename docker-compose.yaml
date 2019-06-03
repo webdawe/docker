@@ -13,8 +13,8 @@ services:
     volumes:
       - ./app:/var/www/html
     networks:
-      default:
-#         ipv4_address: 172.19.0.10 # Use this for databases
+      acme:
+         ipv4_address: 172.16.238.10 # Use this for databases
     ports:
       - 7000:80 # Web
       - 7090:9100 # Prometheus, node_exporter
@@ -24,6 +24,7 @@ volumes:
   dbdata:
 
 networks:
-  default:
-    external:
-      name: acme
+  acme:
+    ipam:
+      config:
+        - subnet: "172.16.238.0/24"
