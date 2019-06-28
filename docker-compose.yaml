@@ -1,7 +1,7 @@
 version: '3'
 services:
   web:
-    image: robmellett/lemp:7.2
+    image: robmellett/lemp:7.3
     hostname: docker-web
     container_name: docker-web
     dns: 8.8.8.8
