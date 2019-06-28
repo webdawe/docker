@@ -14,11 +14,27 @@ services:
       - ./app:/var/www/html
     networks:
       acme:
-         ipv4_address: 172.16.238.10 # Use this for databases
+         ipv4_address: 172.16.238.10
     ports:
       - 7000:80 # Web
       - 7090:9100 # Prometheus, node_exporter
     tty: true
+
+  docker-mysql:
+    image: mysql:latest
+    hostname: docker-mysql
+    networks:
+      acme:
+        ipv4_address: 172.16.238.05
+    ports:
+      - 7001:3306
+    volumes:
+      - dbdata:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=laravel
+      - MYSQL_USER=homestead
+      - MYSQL_PASSWORD=secret
+      - MYSQL_ROOT_PASSWORD=root
 
 volumes:
   dbdata:
