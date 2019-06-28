@@ -5,5 +5,5 @@
 echo ">> Database IP:"
 echo $(docker inspect docker-web | grep IPAddress)
 
-# SSH into ETL App
+# SSH into Web App
 docker exec -it --user ubuntu docker-web bash
