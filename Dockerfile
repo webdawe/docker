@@ -89,7 +89,7 @@ RUN php -r "readfile('http://getcomposer.org/installer');" | php -- --install-di
 # RUN apt-get -q -y install redis-server
 
 # Node
-RUN curl --silent --location https://deb.nodesource.com/setup_9.x | bash - && apt-get update
+RUN curl --silent --location https://deb.nodesource.com/setup_10.x | bash - && apt-get update
 RUN apt-get -q -y install nodejs
 
 # Yarn
