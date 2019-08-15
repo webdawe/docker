@@ -16,7 +16,8 @@ build-ci:
   variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE
   script:
-    - docker build -f Dockerfile --pull -t $IMAGE_TAG:ci .
+    - echo $IMAGE_TAG
+    - docker build -f Dockerfile --pull -t $IMAGE_TAG:ci ./
     - docker push $IMAGE_TAG:ci
   only:
     - master

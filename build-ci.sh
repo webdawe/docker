@@ -2,7 +2,7 @@
 
 versions=('7.3' '7.2' '7.1' '7.0' '5.6')
 
-currentversion="7.2" # What is currently in the Dockerfile
+currentversion="7.2" # What is currently in the Dockerfile.web
 
 for version in "${versions[@]}"; do
 
