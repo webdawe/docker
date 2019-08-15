@@ -1,4 +1,4 @@
-FROM robmellett/ci:latest
+FROM robmellett/base:latest
 LABEL Rob Mellett <robmellett@gmail.com>
 
 # Environmental Configuration
@@ -68,15 +68,6 @@ COPY ./php/php-fpm.conf /etc/php/7.2/fpm/php-fpm.conf
 
 # Install Composer
 RUN php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer
-
-# Node
-RUN curl --silent --location https://deb.nodesource.com/setup_9.x | bash - && apt-get update
-RUN apt-get -q -y install nodejs
-
-# Yarn
-RUN wget -qO - https://raw.githubusercontent.com/yarnpkg/releases/gh-pages/debian/pubkey.gpg | apt-key add -
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-RUN apt-get -q -y update && apt-get -q -y install yarn
 
 # Confd
 ADD https://github.com/kelseyhightower/confd/releases/download/v0.11.0/confd-0.11.0-linux-amd64 /usr/local/bin/confd
