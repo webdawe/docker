@@ -1,4 +1,4 @@
-FROM robmellett/ci
+FROM robmellett/ci:latest
 LABEL Rob Mellett <robmellett@gmail.com>
 
 # Environmental Configuration

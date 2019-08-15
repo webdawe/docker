@@ -5,6 +5,8 @@ docker login
 
 # Build CI Images Locally | -f Dockerfile
 docker build -t robmellett/base:latest .
-docker push robmellett/base:latest
+docker push docker.io/robmellett/base:latest
 
-# docker build -f Dockerfile.web --pull robmellett/lemp:7.2 .
+# Build LEMP Image
+docker build -f Dockerfile.web -t robmellett/lemp:7.2 .
+docker push docker.io/robmellett/lemp:7.2 .
