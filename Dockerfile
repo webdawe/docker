@@ -18,7 +18,7 @@ RUN usermod -aG www-data ubuntu
 
 # Install Recommended Packages
 RUN apt-get update \
-    && apt-get -q -y install rsync supervisor curl wget zip unzip git sqlite3 htop lnav vim make libpng-dev pngquant unattended-upgrades
+    && apt-get -q -y install rsync curl wget zip unzip git htop lnav vim make libpng-dev pngquant unattended-upgrades
 
 # Node
 RUN curl --silent --location https://deb.nodesource.com/setup_10.x | bash - && apt-get update

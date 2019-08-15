@@ -9,6 +9,10 @@ ENV XDEBUG_HOST=${XDEBUG_HOST}
 ENV XDEBUG_REMOTE_PORT=${XDEBUG_REMOTE_PORT}
 ENV XDEBUG_IDEKEY=${XDEBUG_IDEKEY}
 
+# Install Recommended Packages
+RUN apt-get update \
+  && apt-get -q -y install supervisor sqlite3
+
 # Prometheus Monitoring
 RUN curl https://s3-eu-west-1.amazonaws.com/deb.robustperception.io/41EFC99D.gpg | apt-key add -
 RUN apt-get update && apt-get -q -y install prometheus-node-exporter
