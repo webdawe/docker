@@ -16,6 +16,7 @@ build-ci:
   variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE
   script:
+    - docker login
     - docker build -f Dockerfile -t $IMAGE_TAG:base .
     - docker push $IMAGE_TAG:base
   only:
@@ -27,18 +28,7 @@ build-all-versions:
   variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE
   script:
+    - docker login
     - ./build-ci.sh
   only:
     - master
-
-# Tags
-build-tag:
-  stage: build
-  only:
-    - tags
-  variables:
-    IMAGE_TAG: $CI_REGISTRY_IMAGE/lemp:$CI_COMMIT_TAG
-  script:
-    - echo "The image tag is $IMAGE_TAG"
-    - docker build --pull -t $IMAGE_TAG .
-    - docker push $IMAGE_TAG
