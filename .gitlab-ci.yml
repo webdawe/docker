@@ -18,7 +18,7 @@ build-ci:
   script:
     - docker build -f Dockerfile -t $IMAGE_TAG:base .
     - docker login docker.io
-    - docker push $IMAGE_TAG:base
+    - docker push $IMAGE_TAG/base
   only:
     - master
 
