@@ -10,7 +10,18 @@ before_script:
   - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin
   - apk add --no-cache bash
 
-# Master
+# For basic CI
+build-ci:
+  stage: build
+  variables:
+    IMAGE_TAG: $CI_REGISTRY_IMAGE
+  script:
+    - docker build -f Dockerfile --pull -t $IMAGE_TAG:ci .
+    - docker push $IMAGE_TAG:ci
+  only:
+    - master
+
+# For LEMP
 build-all-versions:
   stage: build
   variables:
