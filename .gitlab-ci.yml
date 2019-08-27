@@ -10,7 +10,7 @@ before_script:
   - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin
   - apk add --no-cache bash
 
-# For basic CI
+# For basic CI and all base images
 build-ci:
   stage: build
   variables:
@@ -19,6 +19,18 @@ build-ci:
     - docker build -f Dockerfile -t $CI_REGISTRY_IMAGE/base .
     - docker login docker.io
     - docker push $IMAGE_TAG/base
+  only:
+    - master
+
+# For basic CI
+build-node:
+  stage: build
+  variables:
+    IMAGE_TAG: $CI_REGISTRY_IMAGE
+  script:
+    - docker build -f Dockerfile.node -t $CI_REGISTRY_IMAGE/node .
+    - docker login docker.io
+    - docker push $IMAGE_TAG/node
   only:
     - master
 

@@ -9,10 +9,11 @@ docker login
 
 # Build Node Image
 docker build -f Dockerfile.node -t robmellett/node:latest .
+docker push docker.io/robmellett/node:latest
 
 # Build LEMP Image
 # docker build -f Dockerfile.web -t robmellett/lemp:7.2 .
-# docker push docker.io/robmellett/lemp:7.2 .
+# docker push docker.io/robmellett/lemp:7.2
 
 # Test Images Locally
 # docker run robmellett/base
