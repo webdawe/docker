@@ -1,0 +1,7 @@
+FROM robmellett/base:latest
+LABEL Rob Mellett <robmellett@gmail.com>
+
+# Install PM2
+RUN npm install pm2 -g
+
+ADD nginx/nginx-node.conf /etc/nginx/nginx.conf
