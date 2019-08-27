@@ -1,7 +1,14 @@
 FROM robmellett/base:latest
 LABEL Rob Mellett <robmellett@gmail.com>
 
-# Install PM2
-RUN npm install pm2 -g
+# Install Nginx
+RUN apt-get update \
+  && apt-get -q -y install software-properties-common \
+  && apt-add-repository ppa:nginx/development \
+  && apt-get -q -y update \
+  && apt-get -q -y install nginx-full
 
 ADD nginx/nginx-node.conf /etc/nginx/nginx.conf
+
+# Install PM2 for Node.js Apps
+RUN npm install pm2 -g
