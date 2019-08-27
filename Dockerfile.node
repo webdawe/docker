@@ -13,3 +13,21 @@ ADD nginx/nginx-node.conf /etc/nginx/sites-available/default
 
 # Install PM2 for Node.js Apps
 RUN npm install pm2 -g
+
+# Expose the Logs to Docker
+# RUN ln -sf /dev/stdout /var/log/nginx/access.log \
+#   && ln -sf /dev/stderr /var/log/nginx/error.log \
+#   && ln -sf /dev/stdout /var/log/php7.2-fpm.log
+
+# Use baseimage-docker's init system.
+# https://github.com/phusion/baseimage-docker
+CMD ["/sbin/my_init"]
+
+# Clean up APT when done to minimise filesize.
+RUN apt-get -q -y clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Set working directory to the project
+WORKDIR /var/www/html
+
+# Expose Ports for Web/HTTPS
+EXPOSE 80 443
