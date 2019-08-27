@@ -8,7 +8,8 @@ RUN apt-get update \
   && apt-get -q -y update \
   && apt-get -q -y install nginx-full
 
-ADD nginx/nginx-node.conf /etc/nginx/nginx.conf
+ADD nginx/nginx.conf /etc/nginx/nginx.conf
+ADD nginx/nginx-node.conf /etc/nginx/sites-available/default
 
 # Install PM2 for Node.js Apps
 RUN npm install pm2 -g
