@@ -21,6 +21,11 @@ RUN apt-get update && apt-get -q -y install prometheus-node-exporter
 COPY supervisor/supervisord.conf /etc/supervisor/supervisord.conf
 COPY supervisor/conf.d/*.conf /etc/supervisor/conf.d-available/
 
+# Confd
+ADD https://github.com/kelseyhightower/confd/releases/download/v0.11.0/confd-0.11.0-linux-amd64 /usr/local/bin/confd
+COPY ./confd/templates /etc/confd/templates
+COPY ./confd/conf.d /etc/confd/conf.d
+
 # Install Nginx
 RUN apt-get update \
     && apt-get -q -y install software-properties-common \
@@ -68,11 +73,6 @@ COPY ./php/php-fpm.conf /etc/php/7.3/fpm/php-fpm.conf
 
 # Install Composer
 RUN php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer
-
-# Confd
-ADD https://github.com/kelseyhightower/confd/releases/download/v0.11.0/confd-0.11.0-linux-amd64 /usr/local/bin/confd
-COPY ./confd/templates /etc/confd/templates
-COPY ./confd/conf.d /etc/confd/conf.d
 
 # Copy Start Service Scripts
 RUN mkdir -p /etc/my_init.d
