@@ -17,7 +17,7 @@ RUN npm install pm2 -g
 # Expose the Logs to Docker
 # RUN ln -sf /dev/stdout /var/log/nginx/access.log \
 #   && ln -sf /dev/stderr /var/log/nginx/error.log \
-#   && ln -sf /dev/stdout /var/log/php7.2-fpm.log
+#   && ln -sf /dev/stdout /var/log/php7.3-fpm.log
 
 # Use baseimage-docker's init system.
 # https://github.com/phusion/baseimage-docker
