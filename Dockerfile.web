@@ -35,6 +35,8 @@ RUN apt-get update \
 
 ADD nginx/nginx.conf /etc/nginx/nginx.conf
 ADD nginx/default.conf /etc/nginx/sites-available/default
+ADD nginx/self-signed.conf /etc/nginx/snippets/self-signed.conf;
+ADD nginx/ssl-params.conf /etc/nginx/snippets/ssl-params.conf;
 
 # PHP
 RUN add-apt-repository ppa:ondrej/php && apt-get update
@@ -79,12 +81,14 @@ RUN mkdir -p /etc/my_init.d
 COPY ./services/xdebug.sh /usr/sbin/xdebug.sh
 COPY ./services/php.sh /etc/my_init.d/php.sh
 COPY ./services/setup.sh /etc/my_init.d/setup
+COPY ./ssl/ssl.sh /etc/my_init.d/ssl.sh
 
 RUN chmod +x \
-    /etc/my_init.d/setup \
-    /etc/my_init.d/php.sh \
-    /usr/sbin/xdebug.sh \
-    /usr/local/bin/confd
+  /etc/my_init.d/setup \
+  /etc/my_init.d/php.sh \
+  /usr/sbin/xdebug.sh \
+  /usr/local/bin/confd \
+  /etc/my_init.d/ssl.sh
 
 RUN chown -R ubuntu:www-data /var/www/html
 
