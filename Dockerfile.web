@@ -35,8 +35,8 @@ RUN apt-get update \
 
 ADD nginx/nginx.conf /etc/nginx/nginx.conf
 ADD nginx/default.conf /etc/nginx/sites-available/default
-ADD nginx/self-signed.conf /etc/nginx/snippets/self-signed.conf;
-ADD nginx/ssl-params.conf /etc/nginx/snippets/ssl-params.conf;
+ADD nginx/self-signed.conf /etc/nginx/snippets/self-signed.conf
+ADD nginx/ssl-params.conf /etc/nginx/snippets/ssl-params.conf
 
 # PHP
 RUN add-apt-repository ppa:ondrej/php && apt-get update
