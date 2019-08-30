@@ -2,6 +2,8 @@
 # https://letsencrypt.org/docs/certificates-for-localhost/
 # https://superuser.com/questions/226192/avoid-password-prompt-for-keys-and-prompts-for-dn-information
 
+mkdir -p /etc/nginx/ssl
+
 openssl req \
   -new \
   -newkey rsa:4096 \
