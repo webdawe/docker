@@ -39,6 +39,9 @@ RUN chmod +x \
   /usr/local/bin/confd \
   /etc/my_init.d/ssl.sh
 
+# Create SSL Certs
+RUN /etc/my_init.d/ssl.sh
+
 RUN chown -R ubuntu:www-data /var/www/html
 
 # Expose the Logs to Docker
