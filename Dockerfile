@@ -31,6 +31,10 @@ RUN apt-get -q -y update && apt-get -q -y install yarn
 
 # Copy Start Service Scripts
 RUN mkdir -p /etc/my_init.d
+COPY ./ssl/ssl.sh /etc/my_init.d/ssl.sh
+
+RUN chmod +x \
+  /etc/my_init.d/ssl.sh
 
 # Use baseimage-docker's init system.
 # https://github.com/phusion/baseimage-docker
