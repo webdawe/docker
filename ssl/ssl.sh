@@ -9,8 +9,8 @@ openssl req \
   -nodes \
   -x509 \
   -subj "/C=US/ST=Denial/L=Springfield/O=Dis/CN=www.example.com" \
-  -keyout /etc/ssl/certs/nginx-selfsigned.crt \
+  -keyout /etc/ssl/private/nginx-selfsigned.key \
   -out /etc/ssl/certs/nginx-selfsigned.crt
 
-openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
+# openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
 
