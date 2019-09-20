@@ -103,3 +103,5 @@ Then enter this as the HOST address in Datagrip.
 
 ![Datagrip Server Settings 1](wiki/datagrip-server-settings.png "Datagrip Server Settings 1")
 
+If there are any issues with conflicting docker network IPs run:
+`docker network prune`

@@ -14,7 +14,7 @@ services:
       - ./app:/var/www/html
     networks:
       acme:
-         ipv4_address: 172.16.238.10
+         ipv4_address: 172.16.0.2
     ports:
       - 7000:80 # Web
       - 443:443 # Https
@@ -26,7 +26,7 @@ services:
     hostname: docker-mysql
     networks:
       acme:
-        ipv4_address: 172.16.238.05
+        ipv4_address: 172.16.0.5
     ports:
       - 7001:3306
     volumes:
@@ -44,4 +44,4 @@ networks:
   acme:
     ipam:
       config:
-        - subnet: "172.16.238.0/24"
+        - subnet: "172.16.0.0/16"
