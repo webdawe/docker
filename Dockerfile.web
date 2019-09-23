@@ -93,7 +93,7 @@ RUN chmod +x \
 # Create SSL Certs
 RUN /etc/my_init.d/ssl.sh
 
-# Set Permissions and make sure www-data owns the drecitory
+# Set Permissions and make sure www-data owns the directory
 RUN chown -R ubuntu:www-data /var/www /var/www/html
 RUN chmod g+s /var/www
 
