@@ -93,7 +93,9 @@ RUN chmod +x \
 # Create SSL Certs
 RUN /etc/my_init.d/ssl.sh
 
-RUN chown -R ubuntu:www-data /var/www/html
+# Set Permissions and make sure www-data owns the drecitory
+RUN chown -R ubuntu:www-data /var/www /var/www/html
+RUN chmod g+s /var/www
 
 # Expose the Logs to Docker
 RUN ln -sf /dev/stdout /var/log/nginx/access.log \
