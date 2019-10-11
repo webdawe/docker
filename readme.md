@@ -81,8 +81,6 @@ When connecting to the docker database you can use the settings provided in the 
 ![Datagrip Server Settings 1](wiki/datagrip-server-settings-2.png "Datagrip Server Settings 1")
 
 
-
-
 ## MYSQL 8 Issues
 # https://github.com/laravel/framework/issues/23961
 
