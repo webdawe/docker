@@ -105,3 +105,24 @@ Then enter this as the HOST address in Datagrip.
 
 If there are any issues with conflicting docker network IPs run:
 `docker network prune`
+
+
+## MYSQL 8 Issues
+# https://github.com/laravel/framework/issues/23961
+
+If you are given an error about laravel not being able to connect to MYSQL, or cannot find the database/host.  It's because Mysql 8 changed the way passwords are stored.
+
+You can delete the volume name & all data with:
+`docker volume rm 'dbdata'`
+
+If you need to keep the data. Login to the MYSQL Server.
+
+```SQL
+SELECT user,host, plugin, authentication_string FROM mysql.user;
+```
+
+Run the following command
+```SQL
+ALTER USER 'laravel'@'localhost' IDENTIFIED WITH mysql_native_password BY 'secret';
+```
+

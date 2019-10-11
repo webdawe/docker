@@ -25,16 +25,18 @@ services:
     image: mysql:latest
     hostname: docker-mysql
     container_name: docker-mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
     networks:
       acme:
         ipv4_address: 172.16.0.5
     ports:
-      - 7001:3306
+      - 3306:3306
     volumes:
       - dbdata:/var/lib/mysql
     environment:
       - MYSQL_DATABASE=laravel
-      - MYSQL_USER=homestead
+      - MYSQL_USER=laravel
       - MYSQL_PASSWORD=secret
       - MYSQL_ROOT_PASSWORD=root
 
