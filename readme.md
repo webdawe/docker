@@ -74,37 +74,13 @@ Update values in the `.docker.env` file
 
 ## Connecting to a Docker Database Instance (Mysql/Postgres)
 
-To get the port number on your local machine
-`docker container ls`
+When connecting to the docker database you can use the settings provided in the `docker-compose.yml` file.
 
-```
-CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                              NAMES
-f44940c74964        postgres            "docker-entrypoint.s…"   12 minutes ago      Up 11 minutes       5432/tcp, 0.0.0.0:8001->3306/tcp   docker-postgres_db_1
-b5d95aa50723        adminer             "entrypoint.sh docke…"   14 minutes ago      Up 11 minutes       0.0.0.0:8080->8080/tcp             docker-postgres_adminer_1
+`localhost` and port `3306`.
 
-```
+![Datagrip Server Settings 1](wiki/datagrip-server-settings-2.png "Datagrip Server Settings 1")
 
-PORT = 5432
 
-Run this command with the container running.
-
-`docker inspect docker-postgres_db_1 | grep IPAddress`
-
-```
-"SecondaryIPAddresses": null,
-"IPAddress": "",
-    "IPAddress": "172.20.0.3",
-
-```
-
-Host = 172.20.0.3
-
-Then enter this as the HOST address in Datagrip.
-
-![Datagrip Server Settings 1](wiki/datagrip-server-settings.png "Datagrip Server Settings 1")
-
-If there are any issues with conflicting docker network IPs run:
-`docker network prune`
 
 
 ## MYSQL 8 Issues
