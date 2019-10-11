@@ -24,6 +24,7 @@ services:
   docker-mysql:
     image: mysql:latest
     hostname: docker-mysql
+    container_name: docker-mysql
     networks:
       acme:
         ipv4_address: 172.16.0.5
