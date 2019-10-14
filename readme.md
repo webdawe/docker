@@ -101,13 +101,14 @@ ALTER USER 'laravel'@'localhost' IDENTIFIED WITH mysql_native_password BY 'secre
 ```
 
 ## Redis
-Configure redis queue in `env` jobs with:
+Configure redis as the default connection in `.env`.
 
 ```
 QUEUE_CONNECTION=redis
 ```
 
+Or for a specific job via:
+
 ```PHP
 App\Jobs\ProcessJobExample::dispatch()->onConnection('redis');
 ```
-
