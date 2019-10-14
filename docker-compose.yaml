@@ -19,6 +19,22 @@ services:
       - 443:443 # Https
       - 7090:9100 # Prometheus, node_exporter
     tty: true
+  
+  docker-queue:
+    image: robmellett/lemp:7.3
+    hostname: docker-queue
+    container_name: docker-queue
+    dns: 8.8.8.8
+    env_file:
+      - .docker.env
+    environment:
+      CONTAINER_ROLE: queue # [app, queue, scheduler]
+      APP_ENV: local # [local, staging, production]
+    volumes:
+      - ./app:/var/www/html
+    networks:
+      - acme
+    tty: true
 
   docker-redis:
     image: redis:latest
