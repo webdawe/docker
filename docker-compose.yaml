@@ -1,6 +1,6 @@
 version: '3'
 services:
-  web:
+  docker-web:
     image: robmellett/lemp:7.3
     hostname: docker-web
     container_name: docker-web
@@ -20,6 +20,11 @@ services:
       - 7090:9100 # Prometheus, node_exporter
     tty: true
 
+  docker-redis:
+    image: redis:latest
+    hostname: docker-redis
+    container_name: docker-redis
+
   docker-mysql:
     image: mysql:latest
     hostname: docker-mysql
@@ -31,7 +36,7 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - dbdata:/var/lib/mysql
+      - db-data:/var/lib/mysql
     environment:
       - MYSQL_DATABASE=laravel
       - MYSQL_USER=laravel
@@ -39,7 +44,7 @@ services:
       - MYSQL_ROOT_PASSWORD=root
 
 volumes:
-  dbdata:
+  db-data:
 
 networks:
   acme:
