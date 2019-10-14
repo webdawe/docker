@@ -100,3 +100,14 @@ Run the following command
 ALTER USER 'laravel'@'localhost' IDENTIFIED WITH mysql_native_password BY 'secret';
 ```
 
+## Redis
+Configure redis queue in `env` jobs with:
+
+```
+QUEUE_CONNECTION=redis
+```
+
+```PHP
+App\Jobs\ProcessJobExample::dispatch()->onConnection('redis');
+```
+
