@@ -46,6 +46,28 @@ Make sure the website is in `/var/www/html/`, Nginx is configured to serve pages
 Update values in the `.docker.env` file
 - `XDEBUG_HOST` must be equal to the IP of your local host machine. Run `ip -a` to see it, not the Docker IP.
 
+## VSCode
+Create a `.vscode/launch.json` with the following.
+```
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Listen for XDebug",
+            "type": "php",
+            "request": "launch",
+            "port": 9000,
+            "log": false,
+            "externalConsole": false,
+            "pathMappings": {
+                "/var/www/html": "${workspaceRoot}",
+            },
+            "ignore": ["**/vendor/**/*.php"]
+        }
+    ]
+}
+```
+
 ## Configure PHPStorm using these settings
 
 1. Configure PHPStorm XDebug Configuration Settings
