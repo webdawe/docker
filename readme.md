@@ -125,6 +125,16 @@ ALTER USER 'laravel'@'localhost' IDENTIFIED WITH mysql_native_password BY 'secre
 ## Redis
 Configure redis as the default connection in `.env`.
 
+`composer require predis/predis`
+
+In `config/database.php` you might need to change:
+
+`'client' => env('REDIS_CLIENT', 'redis'),`
+
+to
+
+`'client' => env('REDIS_CLIENT', 'predis'),`
+
 ```
 QUEUE_CONNECTION=redis
 ```
