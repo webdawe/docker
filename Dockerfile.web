@@ -73,6 +73,8 @@ COPY ./php/xdebug.ini /etc/php/7.3/mods-available/xdebug.ini
 COPY ./php/www.conf /etc/php/7.3/fpm/pool.d/www.conf
 COPY ./php/php-fpm.conf /etc/php/7.3/fpm/php-fpm.conf
 
+RUN mkdir -p /var/log/xdebug && touch /var/log/xdebug/log.txt
+
 # Install Composer
 RUN php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer
 
