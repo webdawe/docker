@@ -42,6 +42,13 @@ elif [ "$role" = "queue" ]; then
     echo ">> Setting role to: [queue]"
     ln -sf /etc/supervisor/conf.d-available/queue.conf /etc/supervisor/conf.d/queue.conf
 
+# Horizon
+elif [ "$role" = "horizon" ]; then
+
+    echo ">> Setting role to: [queue]"
+    ln -sf /etc/supervisor/conf.d-available/horizon.conf /etc/supervisor/conf.d/horizon.conf
+
+
 # Scheduler
 elif [ "$role" = "scheduler" ]; then
 
