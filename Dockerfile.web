@@ -9,22 +9,20 @@ ENV XDEBUG_HOST=${XDEBUG_HOST}
 ENV XDEBUG_REMOTE_PORT=${XDEBUG_REMOTE_PORT}
 ENV XDEBUG_IDEKEY=${XDEBUG_IDEKEY}
 
+#
+# Install
+#
+
 # Install Recommended Packages
 RUN apt-get update \
   && apt-get -q -y install supervisor sqlite3
 
-# Prometheus Monitoring
+# Install Prometheus Monitoring
 RUN curl https://s3-eu-west-1.amazonaws.com/deb.robustperception.io/41EFC99D.gpg | apt-key add -
 RUN apt-get update && apt-get -q -y install prometheus-node-exporter
 
-# Supervisor
-COPY supervisor/supervisord.conf /etc/supervisor/supervisord.conf
-COPY supervisor/conf.d/*.conf /etc/supervisor/conf.d-available/
-
-# Confd
+# Install Confd
 ADD https://github.com/kelseyhightower/confd/releases/download/v0.11.0/confd-0.11.0-linux-amd64 /usr/local/bin/confd
-COPY ./confd/templates /etc/confd/templates
-COPY ./confd/conf.d /etc/confd/conf.d
 
 # Install Nginx
 RUN apt-get update \
@@ -33,12 +31,7 @@ RUN apt-get update \
     && apt-get -q -y update \
     && apt-get -q -y install nginx-full
 
-ADD nginx/nginx.conf /etc/nginx/nginx.conf
-ADD nginx/default.conf /etc/nginx/sites-available/default
-ADD nginx/self-signed.conf /etc/nginx/snippets/self-signed.conf
-ADD nginx/ssl-params.conf /etc/nginx/snippets/ssl-params.conf
-
-# PHP
+# Install PHP
 RUN add-apt-repository ppa:ondrej/php && apt-get update
 RUN apt-get -q -y install \
     php7.3 \
@@ -68,6 +61,28 @@ RUN apt-get -q -y install \
     php-memcached
 RUN command -v php
 
+# Install Composer
+RUN php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer
+
+#
+# Configuration
+#
+
+# Supervisor Config
+COPY supervisor/supervisord.conf /etc/supervisor/supervisord.conf
+COPY supervisor/conf.d/*.conf /etc/supervisor/conf.d-available/
+
+# Confd Config
+COPY ./confd/templates /etc/confd/templates
+COPY ./confd/conf.d /etc/confd/conf.d
+
+# Nginx Config
+ADD nginx/nginx.conf /etc/nginx/nginx.conf
+ADD nginx/default.conf /etc/nginx/sites-available/default
+ADD nginx/self-signed.conf /etc/nginx/snippets/self-signed.conf
+ADD nginx/ssl-params.conf /etc/nginx/snippets/ssl-params.conf
+
+# PHP Config
 COPY ./php/php.ini /etc/php/7.3/cli/php.ini
 COPY ./php/xdebug.ini /etc/php/7.3/mods-available/xdebug.ini
 COPY ./php/www.conf /etc/php/7.3/fpm/pool.d/www.conf
@@ -75,10 +90,7 @@ COPY ./php/php-fpm.conf /etc/php/7.3/fpm/php-fpm.conf
 
 RUN mkdir -p /var/log/xdebug && touch /var/log/xdebug/xdebug.log && chmod 775 /var/log/xdebug/xdebug.log
 
-# Install Composer
-RUN php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer
-
-# Copy Start Service Scripts
+# Start Service Scripts
 RUN mkdir -p /etc/my_init.d
 COPY ./services/xdebug.sh /usr/sbin/xdebug.sh
 COPY ./services/php.sh /etc/my_init.d/php.sh
