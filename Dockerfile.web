@@ -109,7 +109,6 @@ RUN /etc/my_init.d/ssl.sh
 
 # Set Permissions and make sure www-data owns the directory
 RUN chown -R ubuntu:www-data /var/www/html
-RUN chmod g+s /var/www/html
 
 # Expose the Logs to Docker
 RUN ln -sf /dev/stdout /var/log/nginx/access.log \
