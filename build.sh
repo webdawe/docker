@@ -4,15 +4,15 @@
 docker login
 
 # Build CI Images Locally | -f Dockerfile
-# docker build -t robmellett/base:latest .
+docker build -f ./Dockerfiles/Base.Dockerfile -t robmellett/base:latest .
 # docker push docker.io/robmellett/base:latest
 
 # Build Node Image
-docker build -f Dockerfile.node -t robmellett/node:latest .
+docker build -f ./Dockerfiles/Node.Dockerfile -t robmellett/node:latest .
 # docker push docker.io/robmellett/node:latest
 
 # Build LEMP Image
-# docker build -f Dockerfile.web -t robmellett/lemp:7.3 .
+docker build -f ./Dockerfiles/Web.Dockerfile  -t robmellett/lemp:7.3 .
 # docker push docker.io/robmellett/lemp:7.3
 
 # Test Images Locally
