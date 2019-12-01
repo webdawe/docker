@@ -5,10 +5,10 @@
 
 version: '3'
 services:
-  acme-web:
+  acme-app:
     image: robmellett/lemp:7.3
-    hostname: acme-web
-    container_name: acme-web
+    hostname: acme-app
+    container_name: acme-app
     dns: 8.8.8.8
     env_file:
       - .docker.env
