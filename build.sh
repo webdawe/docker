@@ -12,8 +12,8 @@ docker build -f ./Dockerfiles/Node.Dockerfile -t robmellett/node:latest .
 # docker push docker.io/robmellett/node:latest
 
 # Build LEMP Image
-docker build -f ./Dockerfiles/Web.Dockerfile  -t robmellett/lemp:7.3 .
-# docker push docker.io/robmellett/lemp:7.3
+docker build -f ./Dockerfiles/Web.Dockerfile  -t robmellett/lemp:7.4 .
+# docker push docker.io/robmellett/lemp:7.4
 
 # Test Images Locally
 # docker run robmellett/base

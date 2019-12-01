@@ -34,26 +34,26 @@ RUN apt-get update \
 # Install PHP
 RUN add-apt-repository ppa:ondrej/php && apt-get update
 RUN apt-get -q -y install \
-    php7.3 \
-    php7.3-fpm \
-    php7.3-common \
-    php7.3-cli \
-    php7.3-mbstring \
-    php7.3-xml \
-    php7.3-curl \
-    php7.3-gd \
-    php7.3-dev \
-    php7.3-xml \
-    php7.3-bcmath \
-    php7.3-mysql \
-    php7.3-mbstring \
-    php7.3-zip \
-    php7.3-sqlite \
-    php7.3-soap \
-    php7.3-json \
-    php7.3-intl \
-    php7.3-imap \
-    php7.3-pgsql \
+    php7.4 \
+    php7.4-fpm \
+    php7.4-common \
+    php7.4-cli \
+    php7.4-mbstring \
+    php7.4-xml \
+    php7.4-curl \
+    php7.4-gd \
+    php7.4-dev \
+    php7.4-xml \
+    php7.4-bcmath \
+    php7.4-mysql \
+    php7.4-mbstring \
+    php7.4-zip \
+    php7.4-sqlite \
+    php7.4-soap \
+    php7.4-json \
+    php7.4-intl \
+    php7.4-imap \
+    php7.4-pgsql \
     php-mysql \
     php-curl \
     php-zip \
@@ -83,10 +83,10 @@ ADD nginx/self-signed.conf /etc/nginx/snippets/self-signed.conf
 ADD nginx/ssl-params.conf /etc/nginx/snippets/ssl-params.conf
 
 # PHP Config
-COPY ./php/php.ini /etc/php/7.3/cli/php.ini
-COPY ./php/xdebug.ini /etc/php/7.3/mods-available/xdebug.ini
-COPY ./php/www.conf /etc/php/7.3/fpm/pool.d/www.conf
-COPY ./php/php-fpm.conf /etc/php/7.3/fpm/php-fpm.conf
+COPY ./php/php.ini /etc/php/7.4/cli/php.ini
+COPY ./php/xdebug.ini /etc/php/7.4/mods-available/xdebug.ini
+COPY ./php/www.conf /etc/php/7.4/fpm/pool.d/www.conf
+COPY ./php/php-fpm.conf /etc/php/7.4/fpm/php-fpm.conf
 
 RUN mkdir -p /var/log/xdebug && touch /var/log/xdebug/xdebug.log && chmod 775 /var/log/xdebug/xdebug.log
 
@@ -116,7 +116,7 @@ RUN chown -R ubuntu:www-data /var/www/html
 # Expose the Logs to Docker
 RUN ln -sf /dev/stdout /var/log/nginx/access.log \
     && ln -sf /dev/stderr /var/log/nginx/error.log \
-    && ln -sf /dev/stdout /var/log/php7.3-fpm.log
+    && ln -sf /dev/stdout /var/log/php7.4-fpm.log
 
 # Use baseimage-docker's init system.
 # https://github.com/phusion/baseimage-docker

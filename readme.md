@@ -14,7 +14,7 @@ Baseimage-docker is a special Docker image that is configured for correct use wi
 
 ## Docker Versions
 You can use the following docker images
-- robmellett/lemp:7.3
+- robmellett/lemp:7.4
 - robmellett/lemp:7.2
 - robmellett/lemp:7.1
 - robmellett/lemp:7.0

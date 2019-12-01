@@ -6,7 +6,7 @@
 version: '3'
 services:
   acme-app:
-    image: robmellett/lemp:7.3
+    image: robmellett/lemp:7.4
     hostname: acme-app
     container_name: acme-app
     dns: 8.8.8.8
@@ -26,7 +26,7 @@ services:
     tty: true
   
   acme-queue:
-    image: robmellett/lemp:7.3
+    image: robmellett/lemp:7.4
     hostname: acme-queue
     container_name: acme-queue
     dns: 8.8.8.8

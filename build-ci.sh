@@ -1,8 +1,8 @@
 #!/bin/bash
 
-versions=('7.3' '7.2' '7.1' '7.0' '5.6')
+versions=('7.4', '7.3' '7.2' '7.1' '7.0' '5.6')
 
-currentversion="7.3" # What is currently in the Dockerfile.web
+currentversion="7.4" # What is currently in the Dockerfile.web
 
 for version in "${versions[@]}"; do
 
