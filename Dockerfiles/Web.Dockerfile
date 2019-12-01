@@ -90,6 +90,9 @@ COPY ./php/php-fpm.conf /etc/php/7.3/fpm/php-fpm.conf
 
 RUN mkdir -p /var/log/xdebug && touch /var/log/xdebug/xdebug.log && chmod 775 /var/log/xdebug/xdebug.log
 
+# Run PhpUnit for faster local performance
+RUN echo 'alias phpunit="./vendor/bin/phpunit --order-by=defects --stop-on-failure"' >> '/home/ubuntu/.bashrc'
+
 # Start Service Scripts
 RUN mkdir -p /etc/my_init.d
 COPY ./services/xdebug.sh /usr/sbin/xdebug.sh
