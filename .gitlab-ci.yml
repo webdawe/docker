@@ -11,6 +11,7 @@ before_script:
   - apk add --no-cache bash
 
 # Base and CI Images
+# One Base Image to Rule them All
 build-base-ci:
   stage: build
   variables:
@@ -19,6 +20,40 @@ build-base-ci:
     - docker build -f ./Dockerfiles/Base.Dockerfile -t $CI_REGISTRY_IMAGE/base .
     - docker login docker.io
     - docker push $IMAGE_TAG/base
+  only:
+    - master
+
+build-lemp-7.4:
+  stage: build
+  variables:
+    IMAGE_TAG: $CI_REGISTRY_IMAGE
+    BUILD_VERSIONS: "('7.4')"
+  script:
+    - docker login docker.io
+    - ./build-ci.sh
+  only:
+    - master
+
+build-lemp-7.3:
+  stage: build
+  variables:
+    IMAGE_TAG: $CI_REGISTRY_IMAGE/lemp
+    BUILD_VERSIONS: "('7.4')"
+  script:
+    - docker login docker.io
+    - ./build-ci.sh
+  only:
+    - master
+
+build-all-versions:
+  when: manual
+  stage: build
+  variables:
+    IMAGE_TAG: $CI_REGISTRY_IMAGE/lemp
+    BUILD_VERSIONS: "('7.4', '7.3' '7.2' '7.1' '7.0' '5.6')"
+  script:
+    - docker login docker.io
+    - ./build-ci.sh
   only:
     - master
 
@@ -32,16 +67,5 @@ build-node:
     - docker build -f ./Dockerfiles/Node.Dockerfile -t $CI_REGISTRY_IMAGE/node .
     - docker login docker.io
     - docker push $IMAGE_TAG/node
-  only:
-    - master
-
-# LEMP Images
-build-all-versions:
-  stage: build
-  variables:
-    IMAGE_TAG: $CI_REGISTRY_IMAGE
-  script:
-    - docker login docker.io
-    - ./build-ci.sh
   only:
     - master
