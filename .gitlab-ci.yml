@@ -27,7 +27,7 @@ build-lemp-7.4:
   stage: build
   variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE
-    BUILD_VERSIONS: "('7.4')"
+    PHP_VERSIONS: "7.4"
   script:
     - docker login docker.io
     - ./build-ci.sh
@@ -38,7 +38,7 @@ build-lemp-7.3:
   stage: build
   variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE
-    BUILD_VERSIONS: "('7.4')"
+    PHP_VERSIONS: "7.3"
   script:
     - docker login docker.io
     - ./build-ci.sh
@@ -50,7 +50,7 @@ build-all-versions:
   stage: build
   variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE
-    BUILD_VERSIONS: "('7.4', '7.3' '7.2' '7.1' '7.0' '5.6')"
+    PHP_VERSIONS: "('7.4', '7.3' '7.2' '7.1' '7.0' '5.6')"
   script:
     - docker login docker.io
     - ./build-ci.sh

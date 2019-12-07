@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ('7.4', '7.3' '7.2' '7.1' '7.0' '5.6')
-versions=${BUILD_VERSIONS}
+versions=(${PHP_VERSIONS})
 
 currentversion="7.4" # What is currently in the Dockerfile.web
 
