@@ -21,9 +21,6 @@ RUN apt-get update \
 RUN curl https://s3-eu-west-1.amazonaws.com/deb.robustperception.io/41EFC99D.gpg | apt-key add -
 RUN apt-get update && apt-get -q -y install prometheus-node-exporter
 
-# Install Confd
-ADD https://github.com/kelseyhightower/confd/releases/download/v0.11.0/confd-0.11.0-linux-amd64 /usr/local/bin/confd
-
 # Install Nginx
 RUN apt-get update \
     && apt-get -q -y install software-properties-common \

@@ -10,7 +10,6 @@ COPY supervisor/supervisord.conf /etc/supervisor/supervisord.conf
 COPY supervisor/conf.d/*.conf /etc/supervisor/conf.d-available/
 
 # Confd
-ADD https://github.com/kelseyhightower/confd/releases/download/v0.11.0/confd-0.11.0-linux-amd64 /usr/local/bin/confd
 COPY ./confd/templates /etc/confd/templates
 COPY ./confd/conf.d /etc/confd/conf.d
 
