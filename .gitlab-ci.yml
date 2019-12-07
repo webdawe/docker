@@ -50,7 +50,7 @@ build-all-versions:
   stage: build
   variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE
-    PHP_VERSIONS: "5.6 7.0 7.1 7.2 7.3 7.4"
+    PHP_VERSIONS: "7.4 7.3 7.2 7.1 7.0 5.6"
   script:
     - docker login docker.io
     - ./build-ci.sh

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# ('5.6' '7.0' '7.1' '7.2' '7.3' '7.4' )
+# ('7.4' '7.3' '7.2' '7.1' '7.0' '5.6')
 versions=(${PHP_VERSIONS})
 
 currentversion="7.4" # What is currently in the Dockerfile.web
@@ -23,4 +23,4 @@ for version in "${versions[@]}"; do
   # Switch to next version
   currentversion=$version
 
-done
+done | tac
