@@ -7,7 +7,7 @@ currentversion="7.4" # What is currently in the Dockerfile.web
 
 for version in "${versions[@]}"; do
 
-  IMAGE_TAG=$CI_REGISTRY_IMAGE
+  IMAGE_TAG=$CI_REGISTRY_IMAGE/lemp
 
   echo ">>> Creating docker image for: $version"
 
