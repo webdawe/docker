@@ -76,6 +76,7 @@ COPY ./confd/conf.d /etc/confd/conf.d
 # Nginx Config
 ADD nginx/nginx.conf /etc/nginx/nginx.conf
 ADD nginx/default.conf /etc/nginx/sites-available/default
+ADD nginx/default-production.conf /etc/nginx/sites-available/default-production
 ADD nginx/self-signed.conf /etc/nginx/snippets/self-signed.conf
 ADD nginx/ssl-params.conf /etc/nginx/snippets/ssl-params.conf
 

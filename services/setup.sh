@@ -11,7 +11,7 @@ if [ "$env" != "local" ]; then
     # (cd /var/www/html && php artisan config:cache && php artisan route:cache)
 
     echo ">>> Set Production Nginx"
-    cp /etc/nginx/sites-available/default-production.conf /etc/nginx/sites-available/default.conf
+    cp /etc/nginx/sites-available/default-production /etc/nginx/sites-available/default.conf
 
     echo ">>> Removing Xdebug..."
     rm -rf /etc/php/7.4/mods-available/xdebug.ini
