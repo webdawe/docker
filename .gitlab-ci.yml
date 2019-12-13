@@ -17,7 +17,7 @@ build-base-ci:
   variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE
   script:
-    - docker build -f ./Dockerfiles/Base.Dockerfile -t $CI_REGISTRY_IMAGE/base .
+    - docker build -f ./src/Dockerfiles/Base.Dockerfile -t $CI_REGISTRY_IMAGE/base .
     - docker login docker.io
     - docker push $IMAGE_TAG/base
   only:

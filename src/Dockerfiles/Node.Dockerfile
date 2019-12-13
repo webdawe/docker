@@ -5,14 +5,6 @@ LABEL Rob Mellett <robmellett@gmail.com>
 RUN apt-get update \
   && apt-get -q -y install supervisor
 
-# Supervisor
-COPY supervisor/supervisord.conf /etc/supervisor/supervisord.conf
-COPY supervisor/conf.d/*.conf /etc/supervisor/conf.d-available/
-
-# Confd
-COPY ./confd/templates /etc/confd/templates
-COPY ./confd/conf.d /etc/confd/conf.d
-
 # Install Nginx
 RUN apt-get update \
   && apt-get -q -y install software-properties-common \
@@ -20,18 +12,27 @@ RUN apt-get update \
   && apt-get -q -y update \
   && apt-get -q -y install nginx-full
 
-ADD nginx/nginx.conf /etc/nginx/nginx.conf
-ADD nginx/default-node.conf /etc/nginx/sites-available/default
-ADD nginx/self-signed.conf /etc/nginx/snippets/self-signed.conf
-ADD nginx/ssl-params.conf /etc/nginx/snippets/ssl-params.conf
-
 # Install PM2 for Node.js Apps
 RUN npm install pm2 -g
 
+# Supervisor
+COPY src/supervisor/supervisord.conf /etc/supervisor/supervisord.conf
+COPY src/supervisor/conf.d/*.conf /etc/supervisor/conf.d-available/
+
+# Confd
+COPY src/confd/templates /etc/confd/templates
+COPY src/confd/conf.d /etc/confd/conf.d
+
+# Nginx Config
+ADD src/nginx/nginx.conf /etc/nginx/nginx.conf
+ADD src/nginx/default-node.conf /etc/nginx/sites-available/default
+ADD src/nginx/self-signed.conf /etc/nginx/snippets/self-signed.conf
+ADD src/nginx/ssl-params.conf /etc/nginx/snippets/ssl-params.conf
+
 # Copy Start Service Scripts
 RUN mkdir -p /etc/my_init.d
-COPY ./services/setup-node.sh /etc/my_init.d/setup
-COPY ./ssl/ssl.sh /etc/my_init.d/ssl.sh
+COPY src/services/setup-node.sh /etc/my_init.d/setup
+COPY src/ssl/ssl.sh /etc/my_init.d/ssl.sh
 
 RUN chmod +x \
   /etc/my_init.d/setup \
