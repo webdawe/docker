@@ -15,7 +15,7 @@ for version in "${versions[@]}"; do
   grep -rli "$currentversion" * | xargs -i@ sed -i "s/$currentversion/$version/g" @
 
   echo "The image tag is $IMAGE_TAG"
-  docker build -f ./Dockerfiles/Web.Dockerfile --pull -t $IMAGE_TAG:$version .
+  docker build -f ./src/Dockerfiles/Web.Dockerfile --pull -t $IMAGE_TAG:$version .
 
   # Push to the Docker Repo
   docker push $IMAGE_TAG:$version

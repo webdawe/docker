@@ -66,25 +66,25 @@ RUN php -r "readfile('http://getcomposer.org/installer');" | php -- --install-di
 #
 
 # Supervisor Config
-COPY supervisor/supervisord.conf /etc/supervisor/supervisord.conf
-COPY supervisor/conf.d/*.conf /etc/supervisor/conf.d-available/
+COPY src/supervisor/supervisord.conf /etc/supervisor/supervisord.conf
+COPY src/supervisor/conf.d/*.conf /etc/supervisor/conf.d-available/
 
 # Confd Config
-COPY ./confd/templates /etc/confd/templates
-COPY ./confd/conf.d /etc/confd/conf.d
+COPY src/confd/templates /etc/confd/templates
+COPY src/confd/conf.d /etc/confd/conf.d
 
 # Nginx Config
-ADD nginx/nginx.conf /etc/nginx/nginx.conf
-ADD nginx/default.conf /etc/nginx/sites-available/default
-ADD nginx/default-production.conf /etc/nginx/sites-available/default-production
-ADD nginx/self-signed.conf /etc/nginx/snippets/self-signed.conf
-ADD nginx/ssl-params.conf /etc/nginx/snippets/ssl-params.conf
+ADD src/nginx/nginx.conf /etc/nginx/nginx.conf
+ADD src/nginx/default.conf /etc/nginx/sites-available/default
+ADD src/nginx/default-production.conf /etc/nginx/sites-available/default-production
+ADD src/nginx/self-signed.conf /etc/nginx/snippets/self-signed.conf
+ADD src/nginx/ssl-params.conf /etc/nginx/snippets/ssl-params.conf
 
 # PHP Config
-COPY ./php/php.ini /etc/php/7.4/cli/php.ini
-COPY ./php/xdebug.ini /etc/php/7.4/mods-available/xdebug.ini
-COPY ./php/www.conf /etc/php/7.4/fpm/pool.d/www.conf
-COPY ./php/php-fpm.conf /etc/php/7.4/fpm/php-fpm.conf
+COPY src/php/php.ini /etc/php/7.4/cli/php.ini
+COPY src/php/xdebug.ini /etc/php/7.4/mods-available/xdebug.ini
+COPY src/php/www.conf /etc/php/7.4/fpm/pool.d/www.conf
+COPY src/php/php-fpm.conf /etc/php/7.4/fpm/php-fpm.conf
 
 RUN mkdir -p /var/log/xdebug && touch /var/log/xdebug/xdebug.log && chmod 775 /var/log/xdebug/xdebug.log
 
@@ -94,10 +94,10 @@ RUN echo 'alias amr="php artisan migrate:refresh --seed"' >> '/home/ubuntu/.bash
 
 # Start Service Scripts
 RUN mkdir -p /etc/my_init.d
-COPY ./services/xdebug.sh /usr/sbin/xdebug.sh
-COPY ./services/php.sh /etc/my_init.d/php.sh
-COPY ./services/setup.sh /etc/my_init.d/setup
-COPY ./ssl/ssl.sh /etc/my_init.d/ssl.sh
+COPY src/services/xdebug.sh /usr/sbin/xdebug.sh
+COPY src/services/php.sh /etc/my_init.d/php.sh
+COPY src/services/setup.sh /etc/my_init.d/setup
+COPY src/ssl/ssl.sh /etc/my_init.d/ssl.sh
 
 RUN chmod +x \
   /etc/my_init.d/setup \
