@@ -3,7 +3,7 @@
 # Make sure the volumes are not mapped to './app'
 # 
 
-version: '3'
+version: '3.1'
 services:
   acme-app:
     image: robmellett/lemp:7.4
@@ -52,11 +52,10 @@ services:
     ports:
       - 6379:6379
 
-  acme-mysql:
-    image: mysql:latest
-    hostname: acme-mysql
-    container_name: acme-mysql
-    command: --default-authentication-plugin=mysql_native_password
+  acme-database:
+    image: postgres
+    hostname: acme-database
+    container_name: acme-database
     networks:
       - acme
     ports:
@@ -64,10 +63,9 @@ services:
     volumes:
       - acme-db-data:/var/lib/mysql
     environment:
-      - MYSQL_DATABASE=laravel
-      - MYSQL_USER=laravel
-      - MYSQL_PASSWORD=secret
-      - MYSQL_ROOT_PASSWORD=root
+      - POSTGRES_DB=laravel
+      - POSTGRES_USER=laravel
+      - POSTGRES_PASSWORD=secret
 
 volumes:
   acme-db-data:
