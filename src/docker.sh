@@ -6,4 +6,4 @@ echo ">> Database IP:"
 echo $(docker inspect docker-mysql | grep IPAddress)
 
 # SSH into Web App
-docker exec -it --user ubuntu docker-app bash
+docker exec -it --user ubuntu acme-app bash
