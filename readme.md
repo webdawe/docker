@@ -122,7 +122,6 @@ When connecting to the docker database you can use the settings provided in the 
       - MYSQL_ROOT_PASSWORD=root
 ```
 
-
 ## Redis
 Configure redis as the default connection in `.env`.
 
