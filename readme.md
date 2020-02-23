@@ -27,11 +27,11 @@ docker-compose up --build
 
 ## Connect to application with:
 ```
-docker exec -it docker-xebug_web_1 bash
+docker exec -it 'acme-app' bash
 ```
 
 ## View site in Chrome
-> http://localhost:7000
+> https://localhost:7000
 
 ## Application has one of 3 website settings: (.docker.env)
 ```
@@ -98,29 +98,30 @@ Create a `.vscode/launch.json` with the following.
 
 When connecting to the docker database you can use the settings provided in the `docker-compose.yml` file.
 
-`localhost` and port `3306`.
+`localhost` and port `3306`, these will be mapped across to the docker images.
 
 ![Datagrip Server Settings 1](wiki/datagrip-server-settings-2.png "Datagrip Server Settings 1")
 
-
-## MYSQL 8 Issues
-# https://github.com/laravel/framework/issues/23961
-
-If you are given an error about laravel not being able to connect to MYSQL, or cannot find the database/host.  It's because Mysql 8 changed the way passwords are stored.
-
-You can delete the volume name & all data with:
-`docker volume rm 'dbdata'`
-
-If you need to keep the data. Login to the MYSQL Server.
-
-```SQL
-SELECT user,host, plugin, authentication_string FROM mysql.user;
+## If you need to use MySQL instead of Postgres, you can comfigure `docker-compose.yml` to with the following:
+```yml
+  acme-database:
+    image: mysql:latest
+    hostname: acme-database
+    container_name: acme-database
+    command: --default-authentication-plugin=mysql_native_password
+    networks:
+      - acme
+    ports:
+      - 3306:3306
+    volumes:
+      - acme-db-data:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=laravel
+      - MYSQL_USER=laravel
+      - MYSQL_PASSWORD=secret
+      - MYSQL_ROOT_PASSWORD=root
 ```
 
-Run the following command
-```SQL
-ALTER USER 'laravel'@'localhost' IDENTIFIED WITH mysql_native_password BY 'secret';
-```
 
 ## Redis
 Configure redis as the default connection in `.env`.
@@ -152,7 +153,7 @@ Sample Redis Config
 # Use in laravel .env file
 
 DB_CONNECTION=mysql
-DB_HOST=docker-mysql
+DB_HOST=docker-database
 DB_PORT=3306
 DB_DATABASE=laravel
 DB_USERNAME=laravel
