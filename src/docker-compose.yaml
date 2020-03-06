@@ -16,7 +16,7 @@ services:
       CONTAINER_ROLE: app # [app, horizon, queue, scheduler]
       APP_ENV: local # [local, staging, production]
     volumes:
-      - ../app:/var/www/html
+      - ./app:/var/www/html
     networks:
       - acme
     ports:
