@@ -158,22 +158,22 @@ When connecting to the docker database you can use the settings provided in the 
 
 ## If you need to use MySQL instead of Postgres, you can configure `docker-compose.yml` with the following:
 ```yml
-  acme-database:
-    image: mysql:latest
-    hostname: acme-database
-    container_name: acme-database
-    command: --default-authentication-plugin=mysql_native_password
-    networks:
-      - acme
-    ports:
-      - 3306:3306
-    volumes:
-      - acme-db-data:/var/lib/mysql
-    environment:
-      - MYSQL_DATABASE=laravel
-      - MYSQL_USER=laravel
-      - MYSQL_PASSWORD=secret
-      - MYSQL_ROOT_PASSWORD=root
+acme-database:
+  image: mysql:latest
+  hostname: acme-database
+  container_name: acme-database
+  command: --default-authentication-plugin=mysql_native_password
+  networks:
+    - acme
+  ports:
+    - 3306:3306
+  volumes:
+    - acme-db-data:/var/lib/mysql
+  environment:
+    - MYSQL_DATABASE=laravel
+    - MYSQL_USER=laravel
+    - MYSQL_PASSWORD=secret
+    - MYSQL_ROOT_PASSWORD=root
 ```
 
 ## Redis
