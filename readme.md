@@ -20,6 +20,16 @@ You can use the following docker images
 - robmellett/lemp:7.0
 - robmellett/lemp:5.6
 
+## Getting Started
+You can either run:
+`composer require robmellett/devops`
+`php artisan vendor:publish  --provider="Robmellett\Devops\DevopsServiceProvider"`
+
+And the required files will be copied into your project.
+
+
+Or you can copy `./src/docker-compose.yml` and `./src/.docker.env.example.` into your project. 
+
 ## Run the application with:
 ```
 docker-compose up --build
