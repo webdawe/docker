@@ -25,6 +25,7 @@ You can use the following docker images
 **Option 1**
 
 `composer require robmellett/devops`
+
 `php artisan vendor:publish  --provider="Robmellett\Devops\DevopsServiceProvider"`
 
 And the required files will be copied into your project.
