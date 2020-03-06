@@ -37,6 +37,7 @@ Copy the following files into your project.
 
 `./src/docker-compose.yml` and `./src/.docker.env.example.` into your project. 
 
+
 ## Run the application with:
 ```
 docker-compose up --build
@@ -49,6 +50,42 @@ docker exec -it 'acme-app' bash
 
 ## View site in Chrome
 > https://localhost:7000
+
+## SSL Configuration
+If you would like to use SSL with the docker container, it generates a self signed certificate.  You will see an annoying error message everytime you view `https://localhost:7000`
+
+You can use [`mkcert`](https://github.com/FiloSottile/mkcert) on your local/host machine, and override the docker certificates with the following.
+
+- Install mkcert on your host machine
+- Run `mkcert install` on your host machine
+- Generate a certificate for localhost with the following command:
+
+`mkcert -key-file '~/.mkcert/docker-selfsigned-key.pem' -cert-file '~/.mkcert/docker-selfsigned.pem' localhost 127.0.0.1 ::1`
+
+Within your `docker-compose.yml` file, you can now override the docker ssl certs with the following:
+
+```yml
+acme-app:
+  image: robmellett/lemp:7.4
+  hostname: acme-app
+  container_name: acme-app
+  dns: 8.8.8.8
+  env_file:
+    - .docker.env
+  environment:
+    CONTAINER_ROLE: app # [app, horizon, queue, scheduler]
+    APP_ENV: local # [local, staging, production]
+  volumes:
+    - ../app:/var/www/html
+    - ~/.mkcert/docker-selfsigned.pem:/etc/nginx/ssl/nginx-selfsigned.crt # Override default SSL Cert
+    - ~/.mkcert/docker-selfsigned-key.pem:/etc/nginx/ssl/nginx-selfsigned.key # Override default SSL keys
+  networks:
+    - acme
+  ports:
+    - 7000:80 # Web
+    - 443:443 # Https
+  tty: true
+```
 
 ## Application has one of 3 website settings: (.docker.env)
 ```
