@@ -15,20 +15,26 @@ Baseimage-docker is a special Docker image that is configured for correct use wi
 ## Docker Versions
 You can use the following docker images
 - robmellett/lemp:7.4
+- robmellett/lemp:7.3
 - robmellett/lemp:7.2
 - robmellett/lemp:7.1
 - robmellett/lemp:7.0
 - robmellett/lemp:5.6
 
 ## Getting Started
-You can either run:
+**Option 1**
+
 `composer require robmellett/devops`
 `php artisan vendor:publish  --provider="Robmellett\Devops\DevopsServiceProvider"`
 
 And the required files will be copied into your project.
 
 
-Or you can copy `./src/docker-compose.yml` and `./src/.docker.env.example.` into your project. 
+**Option 2**
+
+Copy the following files into your project.
+
+`./src/docker-compose.yml` and `./src/.docker.env.example.` into your project. 
 
 ## Run the application with:
 ```
@@ -54,9 +60,9 @@ scheduler
 Make sure the website is in `/var/www/html/`, Nginx is configured to serve pages from `/var/www/html/public`.
 
 Update values in the `.docker.env` file
-- `XDEBUG_HOST` must be equal to the IP of your local host machine. Run `ip -a` to see it, not the Docker IP.
+- `XDEBUG_HOST` must be equal to the IP of your local host machine. Run `ip a` to see it, not the Docker IP.
 
-## VSCode
+## VSCode with XDebug
 Create a `.vscode/launch.json` with the following.
 ```
 {
@@ -78,7 +84,7 @@ Create a `.vscode/launch.json` with the following.
 }
 ```
 
-## Configure PHPStorm using these settings
+## PHPStorm with XDebug
 
 1. Configure PHPStorm XDebug Configuration Settings
 ![PHPStorm XDebug Settings 1](wiki/xdebug-server-settings-2.png "PHPStorm XDebug Settings 2")
@@ -92,11 +98,11 @@ Create a `.vscode/launch.json` with the following.
 4. Set a breakpoint in Phpstorm and you should be good to go
 
 ### Troubleshooting XDebug
-`cat /etc/php/7.2/mods-available/xdebug.ini`
+`cat /etc/php/7.4/mods-available/xdebug.ini`
 
 `cat /tmp/xdebug_remote.log`
 
-`service php7.2-fpm reload`
+`service php7.4-fpm reload`
 
 ### XDebug Resources
 - https://serversforhackers.com/c/getting-xdebug-working
@@ -112,7 +118,7 @@ When connecting to the docker database you can use the settings provided in the 
 
 ![Datagrip Server Settings 1](wiki/datagrip-server-settings-2.png "Datagrip Server Settings 1")
 
-## If you need to use MySQL instead of Postgres, you can comfigure `docker-compose.yml` to with the following:
+## If you need to use MySQL instead of Postgres, you can configure `docker-compose.yml` with the following:
 ```yml
   acme-database:
     image: mysql:latest
