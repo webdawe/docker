@@ -51,7 +51,7 @@ docker exec -it 'acme-app' bash
 ## View site in Chrome
 > https://localhost:7000
 
-## SSL Configuration
+## SSL Configuration for Local Development
 If you would like to use SSL with the docker container, it generates a self signed certificate.  You will see an annoying error message everytime you view `https://localhost:7000`
 
 You can use [`mkcert`](https://github.com/FiloSottile/mkcert) on your local/host machine, and override the docker certificates with the following.
